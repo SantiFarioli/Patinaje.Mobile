@@ -6,4 +6,20 @@
     <string name="hint_password">Contraseña</string>
     <string name="btn_login">INGRESAR</string>
     <string name="forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="buscar">Buscar</string>
+    <string name="acciones_rapidas">Acciones rápidas</string>
+    <string name="patinadoras">Patinadoras</string>
+    <string name="torneos">Torneos</string>
+    <string name="pagos">Pagos</string>
+    <string name="evaluaciones">Evaluaciones</string>
+    <string name="vista_rapida">Vista rápida</string>
+    <string name="proximos_eventos">Próximos eventos</string>
+    <string name="no_hay_eventos">No hay eventos próximos</string>
+    <string name="agregar">Agregar</string>
+    <string name="notificaciones">Notificaciones</string>
+    <string name="perfil">Perfil</string>
+    <string name="inicio">Inicio</string>
+    <string name="centro">Centro</string>
+    <string name="agenda">Agenda</string>
+    <string name="sin_eventos">sin eventos</string>
 </resources>

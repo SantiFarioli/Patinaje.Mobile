@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -20,12 +19,18 @@
         android:networkSecurityConfig="@xml/network_security_config"
         tools:targetApi="31">
 
-        <!-- Pantalla principal (Dashboard) -->
+        <!-- Dashboard (pantalla Home) -->
+        <activity
+            android:name=".ui.main.HomeActivity"
+            android:exported="false" />
+
+        <!-- (Opcional) Si ya no lo usás, podés eliminar MainActivity del proyecto.
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="false" />
+        -->
 
-        <!-- Login como pantalla de inicio -->
+        <!-- Login COMO pantalla de inicio -->
         <activity
             android:name=".ui.login.LoginActivity"
             android:exported="true">

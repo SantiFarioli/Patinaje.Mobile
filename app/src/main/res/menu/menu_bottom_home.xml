@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/inicio"/>
+
+    <item android:id="@+id/nav_center"
+        android:icon="@drawable/ic_center"
+        android:title="@string/centro"/>
+
+    <item android:id="@+id/nav_agenda"
+        android:icon="@drawable/ic_calendar"
+        android:title="@string/agenda"/>
+</menu>

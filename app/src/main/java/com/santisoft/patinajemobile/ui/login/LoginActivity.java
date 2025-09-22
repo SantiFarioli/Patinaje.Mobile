@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.santisoft.patinajemobile.databinding.ActivityLoginBinding;
+import com.santisoft.patinajemobile.ui.main.HomeActivity;
 import com.santisoft.patinajemobile.ui.main.MainActivity;
 import com.santisoft.patinajemobile.util.Resource;
 
@@ -44,7 +45,10 @@ public class LoginActivity extends ComponentActivity {
                 vb.progress.setVisibility(View.GONE);
                 vb.btnLogin.setEnabled(true);
                 // guardar token si querés, y navegar
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(
+                        new Intent(this, HomeActivity.class)
+                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                );
                 finish();
             } else if (res.status == Resource.Status.ERROR) {
                 vb.progress.setVisibility(View.GONE);
