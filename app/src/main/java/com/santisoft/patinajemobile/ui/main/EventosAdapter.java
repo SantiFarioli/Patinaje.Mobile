@@ -1,6 +1,7 @@
 package com.santisoft.patinajemobile.ui.main;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -31,7 +32,14 @@ public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.VH> {
         Evento e = data.get(pos);
         h.vb.tvTitulo.setText(e.titulo);
         h.vb.tvFecha.setText(e.fecha);
-        h.vb.tvLugar.setText(e.lugar!=null ? e.lugar : "");
+        h.vb.tvLugar.setText(e.lugar != null ? e.lugar : "");
+
+        if (e.inscripcionHasta != null && !e.inscripcionHasta.isEmpty()) {
+            h.vb.tvDeadline.setText("Inscripción hasta: " + e.inscripcionHasta);
+            h.vb.tvDeadline.setVisibility(View.VISIBLE);
+        } else {
+            h.vb.tvDeadline.setVisibility(View.GONE);
+        }
     }
 
     @Override public int getItemCount() { return data.size(); }

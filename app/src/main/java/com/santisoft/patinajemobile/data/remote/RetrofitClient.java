@@ -16,14 +16,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class RetrofitClient {
 
-    // ===== Elegí la base URL según tu escenario =====
-    // Teléfono real sobre la MISMA LAN que la PC:
-    private static final String BASE_URL = "http://127.0.0.1:5100/"; // o la que corresponda
+    private static final String BASE_URL = "http://192.168.0.100:5100/";
 
     private static volatile RetrofitClient INSTANCE;
 
     private final Retrofit retrofit;
     private final AuthApi authApi;
+    private final HomeApi homeApi;
 
     private RetrofitClient(Context ctx) {
         Context app = ctx.getApplicationContext();
@@ -55,9 +54,9 @@ public final class RetrofitClient {
                 .build();
 
         authApi = retrofit.create(AuthApi.class);
+        homeApi = retrofit.create(HomeApi.class);
     }
 
-    // 👇 Este es el método que te faltaba
     public static synchronized RetrofitClient get(Context ctx) {
         if (INSTANCE == null) {
             INSTANCE = new RetrofitClient(ctx);
@@ -68,4 +67,5 @@ public final class RetrofitClient {
     public Retrofit retrofit() { return retrofit; }
 
     public AuthApi authApi() { return authApi; }
+    public HomeApi homeApi() { return homeApi; }
 }

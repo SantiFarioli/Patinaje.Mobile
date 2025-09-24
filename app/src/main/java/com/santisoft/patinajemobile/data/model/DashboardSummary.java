@@ -1,7 +1,9 @@
 package com.santisoft.patinajemobile.data.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class DashboardSummary {
-    public int totalPatinadoras;
-    public int eventosSemana;
-    public DashboardSummary(int p, int e){ totalPatinadoras=p; eventosSemana=e; }
+    @SerializedName("totalPatinadoras") public int totalPatinadoras;
+    @SerializedName("eventosSemana")    public int eventosSemana;
 }
+

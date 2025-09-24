@@ -5,35 +5,51 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.MediatorLiveData;
 
 import com.santisoft.patinajemobile.data.model.DashboardSummary;
 import com.santisoft.patinajemobile.data.model.Evento;
+import com.santisoft.patinajemobile.util.Resource;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeViewModel extends AndroidViewModel {
 
-    private final MutableLiveData<DashboardSummary> _summary = new MutableLiveData<>();
-    public LiveData<DashboardSummary> summary = _summary;
+    private final HomeRepository repo;
 
-    private final MutableLiveData<List<Evento>> _eventos = new MutableLiveData<>();
-    public LiveData<List<Evento>> eventos = _eventos;
+    public final MediatorLiveData<DashboardSummary> summary = new MediatorLiveData<>();
+    public final MediatorLiveData<List<Evento>> eventos = new MediatorLiveData<>();
 
     public HomeViewModel(@NonNull Application app) {
         super(app);
-        // MOCK: estos datos vendrán del backend luego
-        _summary.setValue(new DashboardSummary(56, 3));
+        repo = new HomeRepository(app);
 
-        List<Evento> list = new ArrayList<>();
-        list.add(new Evento("Entrenamiento selectivo", "Mar 24, 18:00", "Pista Central"));
-        list.add(new Evento("Torneo Apertura", "Jue 26, 09:00", "Club Unión"));
-        list.add(new Evento("Reunión de padres", "Vie 27, 19:30", "Zoom"));
-        _eventos.setValue(list);
+        // cargar al iniciar
+        cargarResumen();
+        cargarEventos(5);
     }
 
-    public void buscar(String query){
-        // TODO: implementar búsqueda (filtrar eventos / patinadoras) – por ahora no hace nada
+    public void cargarResumen() {
+        LiveData<Resource<DashboardSummary>> src = repo.fetchSummary();
+        summary.addSource(src, res -> {
+            if (res == null) return;
+            if (res.status == Resource.Status.SUCCESS && res.data != null) {
+                summary.setValue(res.data);
+            }
+        });
+    }
+
+    public void cargarEventos(int limit) {
+        LiveData<Resource<List<Evento>>> src = repo.fetchEventos(limit);
+        eventos.addSource(src, res -> {
+            if (res == null) return;
+            if (res.status == Resource.Status.SUCCESS && res.data != null) {
+                eventos.setValue(res.data);
+            }
+        });
+    }
+
+    public void buscar(String query) {
+        // TODO: si luego querés filtrar eventos localmente o refetch al backend
     }
 }
