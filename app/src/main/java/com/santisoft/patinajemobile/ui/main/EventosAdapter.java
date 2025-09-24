@@ -16,36 +16,51 @@ import java.util.List;
 public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.VH> {
     private final List<Evento> data = new ArrayList<>();
 
-    public void submit(List<Evento> list){
+    public void submit(List<Evento> list) {
         data.clear();
-        if (list!=null) data.addAll(list);
+        if (list != null) data.addAll(list);
         notifyDataSetChanged();
     }
 
-    @NonNull @Override public VH onCreateViewHolder(@NonNull ViewGroup p, int v) {
+    @NonNull
+    @Override
+    public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ItemEventoBinding vb = ItemEventoBinding.inflate(
-                LayoutInflater.from(p.getContext()), p, false);
+                LayoutInflater.from(parent.getContext()), parent, false
+        );
         return new VH(vb);
     }
 
-    @Override public void onBindViewHolder(@NonNull VH h, int pos) {
+    @Override
+    public void onBindViewHolder(@NonNull VH h, int pos) {
         Evento e = data.get(pos);
-        h.vb.tvTitulo.setText(e.titulo);
-        h.vb.tvFecha.setText(e.fecha);
+
+        // Título
+        h.vb.tvTitulo.setText(e.nombre);
+
+        // Fecha inicio (formateada por backend o en ISO string)
+        h.vb.tvFecha.setText(e.fechaInicio != null ? e.fechaInicio : "");
+
+        // Lugar
         h.vb.tvLugar.setText(e.lugar != null ? e.lugar : "");
 
-        if (e.inscripcionHasta != null && !e.inscripcionHasta.isEmpty()) {
-            h.vb.tvDeadline.setText("Inscripción hasta: " + e.inscripcionHasta);
+        // Fecha límite de inscripción (opcional)
+        if (e.fechaLimiteInscripcion != null && !e.fechaLimiteInscripcion.isEmpty()) {
+            h.vb.tvDeadline.setText("Inscripción hasta: " + e.fechaLimiteInscripcion);
             h.vb.tvDeadline.setVisibility(View.VISIBLE);
         } else {
             h.vb.tvDeadline.setVisibility(View.GONE);
         }
     }
 
-    @Override public int getItemCount() { return data.size(); }
+    @Override
+    public int getItemCount() { return data.size(); }
 
     static class VH extends RecyclerView.ViewHolder {
         final ItemEventoBinding vb;
-        VH(ItemEventoBinding vb){ super(vb.getRoot()); this.vb = vb; }
+        VH(ItemEventoBinding vb) {
+            super(vb.getRoot());
+            this.vb = vb;
+        }
     }
 }

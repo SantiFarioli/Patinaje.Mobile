@@ -2,13 +2,11 @@ package com.santisoft.patinajemobile.ui.main;
 
 import android.content.Context;
 
-import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.santisoft.patinajemobile.data.model.DashboardSummary;
 import com.santisoft.patinajemobile.data.model.Evento;
-
 import com.santisoft.patinajemobile.data.remote.HomeApi;
 import com.santisoft.patinajemobile.data.remote.RetrofitClient;
 import com.santisoft.patinajemobile.util.Resource;
@@ -47,11 +45,11 @@ public class HomeRepository {
         return live;
     }
 
-    public LiveData<Resource<List<Evento>>> fetchEventos(int limit) {
+    public LiveData<Resource<List<Evento>>> fetchEventos() {
         MutableLiveData<Resource<List<Evento>>> live = new MutableLiveData<>();
         live.postValue(Resource.loading());
 
-        api.getEventos(limit).enqueue(new Callback<List<Evento>>() {
+        api.getEventos().enqueue(new Callback<List<Evento>>() {
             @Override public void onResponse(Call<List<Evento>> call, Response<List<Evento>> res) {
                 if (res.isSuccessful() && res.body()!=null) {
                     live.postValue(Resource.success(res.body()));

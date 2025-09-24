@@ -12,7 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.navigation.NavigationBarView;
 import com.santisoft.patinajemobile.R;
+import com.santisoft.patinajemobile.data.model.DashboardSummary;
 import com.santisoft.patinajemobile.databinding.ActivityHomeBinding;
+
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -26,19 +29,18 @@ public class HomeActivity extends AppCompatActivity {
         vb = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(vb.getRoot());
 
-        // === Toolbar (MaterialToolbar) ===
+        // === Toolbar ===
         setSupportActionBar(vb.topAppBar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("Patinaje Artístico • Inicio");
         }
 
-        // Toolbar actions (notificaciones / perfil)
         vb.topAppBar.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.action_notifications) {
-                Toast.makeText(this, "Notificaciones", Toast.LENGTH_SHORT).show();
+                toast("Notificaciones");
                 return true;
             } else if (item.getItemId() == R.id.action_profile) {
-                Toast.makeText(this, "Perfil", Toast.LENGTH_SHORT).show();
+                toast("Perfil");
                 return true;
             }
             return false;
@@ -80,13 +82,15 @@ public class HomeActivity extends AppCompatActivity {
         // FAB
         vb.fabAdd.setOnClickListener(v -> toast("Acción rápida (+)"));
 
-        // VM
+        // ViewModel
         vm = new ViewModelProvider(this).get(HomeViewModel.class);
+
         vm.summary.observe(this, s -> {
             if (s == null) return;
             vb.tvCountPatinadoras.setText(String.valueOf(s.totalPatinadoras));
-            vb.tvCountEventos.setText(String.valueOf(s.eventosSemana));
+            vb.tvCountEventos.setText(String.valueOf(s.totalEventosProximos));
         });
+
         vm.eventos.observe(this, list -> {
             boolean vacio = (list == null || list.isEmpty());
             vb.lblNoEventos.setVisibility(vacio ? View.VISIBLE : View.GONE);

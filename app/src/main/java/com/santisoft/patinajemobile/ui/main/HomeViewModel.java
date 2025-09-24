@@ -26,7 +26,7 @@ public class HomeViewModel extends AndroidViewModel {
 
         // cargar al iniciar
         cargarResumen();
-        cargarEventos(5);
+        cargarEventos();
     }
 
     public void cargarResumen() {
@@ -39,8 +39,8 @@ public class HomeViewModel extends AndroidViewModel {
         });
     }
 
-    public void cargarEventos(int limit) {
-        LiveData<Resource<List<Evento>>> src = repo.fetchEventos(limit);
+    public void cargarEventos() {
+        LiveData<Resource<List<Evento>>> src = repo.fetchEventos();
         eventos.addSource(src, res -> {
             if (res == null) return;
             if (res.status == Resource.Status.SUCCESS && res.data != null) {
