@@ -23,6 +23,7 @@ public final class RetrofitClient {
     private final Retrofit retrofit;
     private final AuthApi authApi;
     private final HomeApi homeApi;
+    private final PatinadorasApi patinadorasApi;   // 👈 NUEVO
 
     private RetrofitClient(Context ctx) {
         Context app = ctx.getApplicationContext();
@@ -55,6 +56,7 @@ public final class RetrofitClient {
 
         authApi = retrofit.create(AuthApi.class);
         homeApi = retrofit.create(HomeApi.class);
+        patinadorasApi = retrofit.create(PatinadorasApi.class); // 👈 NUEVO
     }
 
     public static synchronized RetrofitClient get(Context ctx) {
@@ -68,4 +70,5 @@ public final class RetrofitClient {
 
     public AuthApi authApi() { return authApi; }
     public HomeApi homeApi() { return homeApi; }
+    public PatinadorasApi patinadorasApi() { return patinadorasApi; } // 👈 NUEVO
 }

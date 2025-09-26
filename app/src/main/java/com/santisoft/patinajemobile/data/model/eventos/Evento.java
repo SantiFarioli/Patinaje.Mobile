@@ -1,4 +1,4 @@
-package com.santisoft.patinajemobile.data.model;
+package com.santisoft.patinajemobile.data.model.eventos;
 
 import com.google.gson.annotations.SerializedName;
 

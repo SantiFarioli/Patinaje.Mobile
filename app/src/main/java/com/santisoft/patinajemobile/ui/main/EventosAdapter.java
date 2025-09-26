@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.santisoft.patinajemobile.data.model.Evento;
+import com.santisoft.patinajemobile.data.model.eventos.Evento;
 import com.santisoft.patinajemobile.databinding.ItemEventoBinding;
 
 import java.util.ArrayList;

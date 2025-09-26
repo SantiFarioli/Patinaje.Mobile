@@ -1,7 +1,7 @@
 package com.santisoft.patinajemobile.data.remote;
 
-import com.santisoft.patinajemobile.data.model.DashboardSummary;
-import com.santisoft.patinajemobile.data.model.Evento;
+import com.santisoft.patinajemobile.data.model.dashboard.DashboardSummary;
+import com.santisoft.patinajemobile.data.model.eventos.Evento;
 
 import java.util.List;
 

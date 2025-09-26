@@ -7,8 +7,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 
-import com.santisoft.patinajemobile.data.model.DashboardSummary;
-import com.santisoft.patinajemobile.data.model.Evento;
+import com.santisoft.patinajemobile.data.model.dashboard.DashboardSummary;
+import com.santisoft.patinajemobile.data.model.eventos.Evento;
 import com.santisoft.patinajemobile.util.Resource;
 
 import java.util.List;

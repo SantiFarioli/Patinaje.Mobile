@@ -7,298 +7,33 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
+        android:layout_height="match_parent">
 
-        <!-- ===== AppBar / Toolbar ===== -->
+        <!-- Toolbar -->
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
             style="@style/Widget.Material3.Toolbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:menu="@menu/menu_top_home"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:menu="@menu/menu_top_home" />
+
+        <!-- NavHost: contendrá Dashboard, Patinadoras, Detalle, etc. -->
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/nav_graph"
+            app:layout_constraintTop_toBottomOf="@id/topAppBar"
+            app:layout_constraintBottom_toTopOf="@id/bottomNav"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- ===== Buscar ===== -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilSearch"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:startIconDrawable="@drawable/ic_search"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/topAppBar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etSearch"
-                android:hint="@string/buscar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- ===== Acciones rápidas ===== -->
-        <TextView
-            android:id="@+id/lblAcciones"
-            android:text="@string/acciones_rapidas"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tilSearch"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="16dp"/>
-
-        <androidx.gridlayout.widget.GridLayout
-            android:id="@+id/gridQuick"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:rowCount="1"
-            app:columnCount="4"
-            app:useDefaultMargins="true"
-            app:layout_constraintTop_toBottomOf="@id/lblAcciones"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <!-- Patinadoras -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardPatinadoras"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:layout_columnWeight="1">
-
-                <LinearLayout
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="12dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:src="@drawable/ic_patin"/>
-
-                    <TextView
-                        android:text="@string/patinadoras"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Torneos -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardTorneos"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:layout_columnWeight="1">
-
-                <LinearLayout
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="12dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:src="@drawable/ic_trophy"/>
-
-                    <TextView
-                        android:text="@string/torneos"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Pagos -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardPagos"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:layout_columnWeight="1">
-
-                <LinearLayout
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="12dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:src="@drawable/ic_cash"/>
-
-                    <TextView
-                        android:text="@string/pagos"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Evaluaciones -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardEvaluaciones"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:layout_columnWeight="1">
-
-                <LinearLayout
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="12dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:src="@drawable/ic_eval"/>
-
-                    <TextView
-                        android:text="@string/evaluaciones"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-        </androidx.gridlayout.widget.GridLayout>
-
-        <!-- ===== Vista rápida ===== -->
-        <TextView
-            android:id="@+id/lblVistaRapida"
-            android:text="@string/vista_rapida"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/gridQuick"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="16dp"/>
-
-        <!-- Card: total patinadoras -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardPatCount"
-            style="@style/Widget.Material3.CardView.Filled"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            app:layout_constraintTop_toBottomOf="@id/lblVistaRapida"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/cardEventos"
-            app:layout_constraintHorizontal_weight="1"
-            android:layout_marginTop="16dp">
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:src="@drawable/ic_user"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:contentDescription="@string/patinadoras"/>
-
-                <TextView
-                    android:id="@+id/tvCountPatinadoras"
-                    android:text="0"
-                    android:textStyle="bold"
-                    android:textSize="24sp"
-                    android:layout_marginStart="12dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Card: eventos -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardEventos"
-            style="@style/Widget.Material3.CardView.Filled"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            app:layout_constraintTop_toBottomOf="@id/lblVistaRapida"
-            app:layout_constraintStart_toEndOf="@id/cardPatCount"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            android:layout_marginTop="16dp">
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:src="@drawable/ic_calendar"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:contentDescription="@string/agenda"/>
-
-                <TextView
-                    android:id="@+id/tvCountEventos"
-                    android:text="0"
-                    android:textStyle="bold"
-                    android:textSize="24sp"
-                    android:layout_marginStart="12dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- ===== Próximos eventos ===== -->
-        <TextView
-            android:id="@+id/lblProximos"
-            android:text="@string/proximos_eventos"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/cardPatCount"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="20dp"/>
-
-        <TextView
-            android:id="@+id/lblNoEventos"
-            android:text="@string/sin_eventos"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/lblProximos"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="8dp"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerEventos"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/lblNoEventos"
-            app:layout_constraintBottom_toTopOf="@id/bottomNav"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp"/>
-
-        <!-- ===== FAB ===== -->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabAdd"
-            android:contentDescription="@string/agregar"
-            app:srcCompat="@drawable/ic_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/bottomNav"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="16dp"/>
-
-        <!-- ===== Bottom Navigation ===== -->
+        <!-- Bottom Navigation -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNav"
             android:layout_width="0dp"
@@ -307,6 +42,5 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

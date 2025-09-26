@@ -5,8 +5,8 @@ import android.content.Context;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.santisoft.patinajemobile.data.model.DashboardSummary;
-import com.santisoft.patinajemobile.data.model.Evento;
+import com.santisoft.patinajemobile.data.model.dashboard.DashboardSummary;
+import com.santisoft.patinajemobile.data.model.eventos.Evento;
 import com.santisoft.patinajemobile.data.remote.HomeApi;
 import com.santisoft.patinajemobile.data.remote.RetrofitClient;
 import com.santisoft.patinajemobile.util.Resource;

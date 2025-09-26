@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.santisoft.patinajemobile.data.model.LoginResponse;
+import com.santisoft.patinajemobile.data.model.login.LoginResponse;
 import com.santisoft.patinajemobile.data.repository.AuthRepository;
 import com.santisoft.patinajemobile.util.Resource;
 

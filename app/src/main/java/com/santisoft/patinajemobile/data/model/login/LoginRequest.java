@@ -1,4 +1,4 @@
-package com.santisoft.patinajemobile.data.model;
+package com.santisoft.patinajemobile.data.model.login;
 
 public class LoginRequest {
     private String email;

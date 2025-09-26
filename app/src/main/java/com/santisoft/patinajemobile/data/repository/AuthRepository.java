@@ -7,8 +7,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.santisoft.patinajemobile.data.local.SessionManager;
-import com.santisoft.patinajemobile.data.model.LoginRequest;
-import com.santisoft.patinajemobile.data.model.LoginResponse;
+import com.santisoft.patinajemobile.data.model.login.LoginRequest;
+import com.santisoft.patinajemobile.data.model.login.LoginResponse;
 import com.santisoft.patinajemobile.data.remote.AuthApi;
 import com.santisoft.patinajemobile.data.remote.RetrofitClient;
 import com.santisoft.patinajemobile.util.Resource;

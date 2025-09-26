@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.navigation.safeargs)
 }
 
 android {
@@ -14,8 +15,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        // Por si usás vectores en drawables (icons)
         vectorDrawables.useSupportLibrary = true
     }
 
@@ -28,17 +27,13 @@ android {
             )
         }
         debug {
-            // Si querés logs más verbosos de OkHttp/Retrofit en debug
             isJniDebuggable = true
         }
     }
 
     compileOptions {
-        // Nos quedamos en Java 11 porque tu código está en Java
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-        // Habilita desugaring si más adelante lo necesitás (APIs de java.time, etc.)
-        // isCoreLibraryDesugaringEnabled = true
     }
 
     buildFeatures {
@@ -48,34 +43,33 @@ android {
 }
 
 dependencies {
-    // --- AndroidX base / UI ---
+    // AndroidX / UI
     implementation(libs.appcompat)
-    implementation(libs.activity)                // androidx.activity:activity
-    implementation(libs.constraintlayout)        // androidx.constraintlayout:constraintlayout
-    implementation("com.google.android.material:material:1.12.0") // Material (Toolbar, FAB, TextInput, NavBar)
-
-    // Layouts extra
-    implementation("androidx.gridlayout:gridlayout:1.0.0")        // GridLayout para Acciones rápidas
-    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation(libs.activity)
+    implementation(libs.constraintlayout)
+    implementation(libs.material)
+    implementation(libs.gridlayout)
+    implementation(libs.recyclerview)
 
     // MVVM / Lifecycle
-    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.6")
-    implementation("androidx.lifecycle:lifecycle-livedata:2.8.6")
-    implementation("androidx.lifecycle:lifecycle-runtime:2.8.6")
+    implementation(libs.lifecycle.viewmodel)
+    implementation(libs.lifecycle.livedata)
+    implementation(libs.lifecycle.runtime)
+
+    // Navigation Component
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
 
     // Networking
-    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.okhttp.logging)
 
     // Imágenes
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-
-    // (opcional) Desugaring si lo activás arriba
-    // coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.2")
+    implementation(libs.glide)
 
     // Tests
-    testImplementation(libs.junit)
+    testImplementation(libs.junit4)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }

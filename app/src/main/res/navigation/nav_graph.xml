@@ -1,0 +1,32 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.santisoft.patinajemobile.ui.main.DashboardFragment"
+        android:label="Inicio">
+        <action
+            android:id="@+id/action_dashboard_to_patinadoras"
+            app:destination="@id/patinadorasFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/patinadorasFragment"
+        android:name="com.santisoft.patinajemobile.ui.patinadoras.PatinadorasFragment"
+        android:label="Patinadoras">
+        <action
+            android:id="@+id/action_patinadoras_to_detalle"
+            app:destination="@id/detallePatinadoraFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detallePatinadoraFragment"
+        android:name="com.santisoft.patinajemobile.ui.patinadoras.DetallePatinadoraFragment"
+        android:label="Detalle">
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
+</navigation>

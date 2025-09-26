@@ -1,4 +1,4 @@
-package com.santisoft.patinajemobile.data.model;
+package com.santisoft.patinajemobile.data.model.dashboard;
 
 import com.google.gson.annotations.SerializedName;
 

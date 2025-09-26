@@ -1,13 +1,18 @@
+<!-- res/menu/menu_bottom_home.xml -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/nav_home"
+
+    <item
+        android:id="@+id/dashboardFragment"
         android:icon="@drawable/ic_home"
-        android:title="@string/inicio"/>
+        android:title="@string/inicio" />
 
-    <item android:id="@+id/nav_center"
+    <item
+        android:id="@+id/centroFragment"
         android:icon="@drawable/ic_center"
-        android:title="@string/centro"/>
+        android:title="@string/centro" />
 
-    <item android:id="@+id/nav_agenda"
+    <item
+        android:id="@+id/agendaFragment"
         android:icon="@drawable/ic_calendar"
-        android:title="@string/agenda"/>
+        android:title="@string/agenda" />
 </menu>

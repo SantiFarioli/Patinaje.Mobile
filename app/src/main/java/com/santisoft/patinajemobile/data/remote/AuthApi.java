@@ -1,7 +1,7 @@
 package com.santisoft.patinajemobile.data.remote;
 
-import com.santisoft.patinajemobile.data.model.LoginRequest;
-import com.santisoft.patinajemobile.data.model.LoginResponse;
+import com.santisoft.patinajemobile.data.model.login.LoginRequest;
+import com.santisoft.patinajemobile.data.model.login.LoginResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
