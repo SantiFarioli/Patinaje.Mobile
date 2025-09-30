@@ -25,8 +25,9 @@
         android:id="@+id/detallePatinadoraFragment"
         android:name="com.santisoft.patinajemobile.ui.patinadoras.DetallePatinadoraFragment"
         android:label="Detalle">
+
         <argument
-            android:name="id"
+            android:name="patinadorId"
             app:argType="integer" />
     </fragment>
 </navigation>

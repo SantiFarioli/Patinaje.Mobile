@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.santisoft.patinajemobile.R;
 import com.santisoft.patinajemobile.data.model.patinadoras.PatinadoraListItem;
 import com.santisoft.patinajemobile.databinding.ItemPatinadoraBinding;
 
@@ -42,9 +44,21 @@ public class PatinadorasAdapter extends RecyclerView.Adapter<PatinadorasAdapter.
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
         PatinadoraListItem p = data.get(position);
+
         holder.vb.tvNombre.setText(p.nombre + " " + p.apellido);
         holder.vb.tvCategoria.setText("Categoría: " + p.categoria);
-        holder.vb.tvEstado.setText(p.activo ? "Activo" : "Inactivo");
+        holder.vb.tvEstado.setText(p.activo ? "Activa" : "Inactiva");
+
+        // Cargar foto con Glide si existe
+        if (p.fotoUrl != null && !p.fotoUrl.isEmpty()) {
+            Glide.with(holder.itemView.getContext())
+                    .load(p.fotoUrl)
+                    .placeholder(R.drawable.ic_person)
+                    .circleCrop()
+                    .into(holder.vb.imgFotoMini);
+        } else {
+            holder.vb.imgFotoMini.setImageResource(R.drawable.ic_person);
+        }
 
         holder.itemView.setOnClickListener(v -> listener.onClick(p));
     }
@@ -59,4 +73,5 @@ public class PatinadorasAdapter extends RecyclerView.Adapter<PatinadorasAdapter.
             this.vb = vb;
         }
     }
+
 }

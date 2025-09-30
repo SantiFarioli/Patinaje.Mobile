@@ -11,6 +11,6 @@ public interface PatinadorasApi {
     @GET("api/patinadores")
     Call<PagedResponse<PatinadoraListItem>> getPatinadoras(); // 👈 cambio
 
-    @GET("api/patinadores/{id}")
+    @GET("api/Patinadores/{id}")
     Call<PatinadoraDetail> getDetalle(@Path("id") int id);
 }

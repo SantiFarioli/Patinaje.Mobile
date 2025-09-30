@@ -8,4 +8,5 @@ public class PatinadoraListItem {
     @SerializedName("apellido") public String apellido;
     @SerializedName("categoria") public String categoria;
     @SerializedName("activo") public boolean activo;
+    @SerializedName("fotoUrl") public String fotoUrl;
 }

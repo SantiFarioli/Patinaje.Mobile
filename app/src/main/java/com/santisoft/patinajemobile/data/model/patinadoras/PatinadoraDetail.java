@@ -1,6 +1,7 @@
 package com.santisoft.patinajemobile.data.model.patinadoras;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.List;
 
 public class PatinadoraDetail {
     @SerializedName("patinadorId") public int patinadorId;
@@ -9,6 +10,11 @@ public class PatinadoraDetail {
     @SerializedName("fechaNacimiento") public String fechaNacimiento;
     @SerializedName("categoria") public String categoria;
     @SerializedName("activo") public boolean activo;
+
+    @SerializedName("dni") public String dni;
+    @SerializedName("domicilio") public String domicilio;
+    @SerializedName("fotoUrl") public String fotoUrl;
+
     @SerializedName("fichaMedica") public String fichaMedica;
     @SerializedName("asisteGimnasio") public boolean asisteGimnasio;
     @SerializedName("asisteNutricionista") public boolean asisteNutricionista;
@@ -17,4 +23,18 @@ public class PatinadoraDetail {
     @SerializedName("profesorNombre") public String profesorNombre;
     @SerializedName("clubId") public Integer clubId;
     @SerializedName("clubNombre") public String clubNombre;
+
+    @SerializedName("tutores")
+    public List<TutorDto> tutores;
+
+    public static class TutorDto {
+        @SerializedName("tutorId") public int tutorId;
+        @SerializedName("nombre") public String nombre;
+        @SerializedName("apellido") public String apellido;
+        @SerializedName("dni") public String dni;
+        @SerializedName("domicilio") public String domicilio;
+        @SerializedName("telefono") public String telefono;
+        @SerializedName("email") public String email;
+        @SerializedName("relacion") public String relacion;
+    }
 }

@@ -9,54 +9,85 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.fragment.NavHostFragment;
+import androidx.viewpager2.widget.ViewPager2;
 
+import com.bumptech.glide.Glide;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+import com.santisoft.patinajemobile.R;
+import com.santisoft.patinajemobile.data.model.patinadoras.PatinadoraDetail;
 import com.santisoft.patinajemobile.databinding.FragmentDetallePatinadoraBinding;
 
 public class DetallePatinadoraFragment extends Fragment {
 
-    private FragmentDetallePatinadoraBinding vb;
-    private PatinadorasViewModel vm;
+    private FragmentDetallePatinadoraBinding binding;
+    private DetallePatinadoraViewModel viewModel;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        vb = FragmentDetallePatinadoraBinding.inflate(inflater, container, false);
-        return vb.getRoot();
+        binding = FragmentDetallePatinadoraBinding.inflate(inflater, container, false);
+        viewModel = new ViewModelProvider(requireActivity()).get(DetallePatinadoraViewModel.class);
+
+        // 👉 obtener el ID pasado desde el listado
+        int id = getArguments().getInt("patinadorId", -1);
+        if (id != -1) {
+            viewModel.loadPatinador(id); // 👈 método correcto del ViewModel
+        }
+
+        // observar el detalle
+        viewModel.getPatinador().observe(getViewLifecycleOwner(), this::cargarHeader);
+
+        // configurar tabs
+        setupTabs();
+
+        return binding.getRoot();
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view,
-                              @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    private void cargarHeader(PatinadoraDetail p) {
+        if (p == null) return;
 
-        vm = new ViewModelProvider(requireActivity()).get(PatinadorasViewModel.class);
+        // Nombre
+        binding.tvNombre.setText(p.nombre + " " + p.apellido);
 
-        int id = getArguments() != null ? getArguments().getInt("id", -1) : -1;
-        if (id != -1) vm.cargarDetalle(id);
+        // Categoría
+        binding.chipCategoria.setText(p.categoria != null ? p.categoria : "—");
 
-        vm.detalle.observe(getViewLifecycleOwner(), det -> {
-            if (det == null) return;
-            vb.tvNombre.setText(det.nombre + " " + det.apellido);
-            vb.tvCategoria.setText("Categoría: " + det.categoria);
-            vb.tvFechaNac.setText("Nacimiento: " + det.fechaNacimiento);
-            vb.tvFichaMedica.setText("Ficha médica: " + det.fichaMedica);
-            vb.tvEstado.setText(det.activo ? "Activo" : "Inactivo");
-            vb.tvExtras.setText(
-                    "Gimnasio: " + (det.asisteGimnasio ? "Sí" : "No") + "\n" +
-                            "Nutricionista: " + (det.asisteNutricionista ? "Sí" : "No") + "\n" +
-                            "Psicólogo: " + (det.asistePsicologo ? "Sí" : "No")
-            );
-            vb.tvProfesor.setText("Profesor: " + det.profesorNombre);
-            if (det.clubNombre != null) {
-                vb.tvClub.setText("Club: " + det.clubNombre);
-            }
-        });
+        // Estado
+        binding.chipEstado.setText(p.activo ? "Activa" : "Inactiva");
+        if (p.activo) {
+            binding.chipEstado.setChipBackgroundColorResource(R.color.success);
+            binding.chipEstado.setTextColor(getResources().getColor(android.R.color.white));
+        } else {
+            binding.chipEstado.setChipBackgroundColorResource(R.color.warning);
+            binding.chipEstado.setTextColor(getResources().getColor(android.R.color.black));
+        }
 
-        vb.btnVolver.setOnClickListener(v ->
-                NavHostFragment.findNavController(this).popBackStack()
-        );
+        // Foto
+        if (p.fotoUrl != null && !p.fotoUrl.isEmpty()) {
+            Glide.with(this)
+                    .load(p.fotoUrl)
+                    .placeholder(R.drawable.ic_person)
+                    .circleCrop()
+                    .into(binding.imgFoto);
+        } else {
+            binding.imgFoto.setImageResource(R.drawable.ic_person);
+        }
+    }
+
+    private void setupTabs() {
+        ViewPager2 viewPager = binding.viewPager;
+        TabLayout tabLayout = binding.tabLayout;
+
+        DetallePagerAdapter adapter = new DetallePagerAdapter(this);
+        viewPager.setAdapter(adapter);
+
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+            if (position == 0) tab.setText("Datos");
+            else if (position == 1) tab.setText("Asistencias");
+            else if (position == 2) tab.setText("Pagos");
+            else if (position == 3) tab.setText("Evaluaciones");
+        }).attach();
     }
 }

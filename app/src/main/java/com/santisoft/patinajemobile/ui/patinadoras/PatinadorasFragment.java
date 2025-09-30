@@ -53,7 +53,7 @@ public class PatinadorasFragment extends Fragment {
 
     private void abrirDetalle(PatinadoraListItem p) {
         Bundle args = new Bundle();
-        args.putInt("id", p.patinadorId);
+        args.putInt("patinadorId", p.patinadorId); // 👈 Se pasa el ID
         NavHostFragment.findNavController(this)
                 .navigate(R.id.action_patinadoras_to_detalle, args);
     }

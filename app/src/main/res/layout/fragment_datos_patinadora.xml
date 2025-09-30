@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="@dimen/space_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- ===== DATOS DE LA PATINADORA ===== -->
+        <TextView
+            android:text="Datos de la patinadora"
+            style="@style/Text.Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvDni"
+            style="@style/Text.Body"
+            android:layout_marginTop="@dimen/space_8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvDomicilio"
+            style="@style/Text.Body"
+            android:layout_marginTop="@dimen/space_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvFechaNac"
+            style="@style/Text.Body"
+            android:layout_marginTop="@dimen/space_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvFichaMedica"
+            style="@style/Text.Body"
+            android:layout_marginTop="@dimen/space_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvEstado"
+            style="@style/Text.Body"
+            android:textStyle="italic"
+            android:layout_marginTop="@dimen/space_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Separador -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/space_16"
+            android:background="@color/md_surface_variant" />
+
+        <!-- ===== TUTORES ===== -->
+        <TextView
+            android:text="Tutor responsable"
+            style="@style/Text.Subtitle"
+            android:layout_marginTop="@dimen/space_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/containerTutores"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8" />
+
+        <!-- Botón Volver -->
+        <Button
+            android:id="@+id/btnVolver"
+            style="@style/Button.Primary"
+            android:text="Volver"
+            android:layout_marginTop="@dimen/space_16"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</ScrollView>
