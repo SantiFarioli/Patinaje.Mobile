@@ -15,9 +15,9 @@ public class DetallePagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 0: return new DatosPatinadoraFragment();
-            case 1: return new PagosPatinadoraFragment();
-            case 2: return new EvaluacionesPatinadoraFragment();
-            case 3: return new AsistenciasPatinadoraFragment();
+            case 1: return new AsistenciasPatinadoraFragment();  // 👈 Asistencias en el tab correcto
+            case 2: return new PagosPatinadoraFragment();
+            case 3: return new EvaluacionesPatinadoraFragment();
             default: return new DatosPatinadoraFragment();
         }
     }

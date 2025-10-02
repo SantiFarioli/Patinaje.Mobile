@@ -14,6 +14,7 @@
     <color name="md_secondary_container">#E8DEF8</color>
     <color name="md_on_secondary_container">#1D192B</color>
     <color name="md_grey_600">#757575</color>
+    <color name="error">#E53935</color>   <!-- Rojo -->
 
 
     <color name="md_tertiary">#7D5260</color>

@@ -37,4 +37,16 @@ public class PatinadoraDetail {
         @SerializedName("email") public String email;
         @SerializedName("relacion") public String relacion;
     }
+
+    @SerializedName("asistencias")
+    public List<AsistenciaDto> asistencias;
+
+    public static class AsistenciaDto {
+        @SerializedName("asistenciaId") public int asistenciaId;
+        @SerializedName("fechaClase") public String fechaClase;  // viene como "yyyy-MM-dd"
+        @SerializedName("presente") public boolean presente;
+    }
+
+
+
 }
