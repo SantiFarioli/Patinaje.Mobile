@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -61,18 +62,52 @@ public class DatosPatinadoraFragment extends Fragment {
             binding.containerTutores.removeAllViews();
             if (p.tutores != null && !p.tutores.isEmpty()) {
                 for (PatinadoraDetail.TutorDto t : p.tutores) {
+                    // Determinar emoji según relación
+                    String emoji;
+                    if (t.relacion != null) {
+                        String rel = t.relacion.toLowerCase();
+                        if (rel.contains("madre")) {
+                            emoji = "👩";
+                        } else if (rel.contains("padre")) {
+                            emoji = "👨";
+                        } else {
+                            emoji = "👨‍👩‍👧";
+                        }
+                    } else {
+                        emoji = "👨‍👩‍👧";
+                    }
+
+                    // Crear card para cada tutor
+                    LinearLayout card = new LinearLayout(getContext());
+                    card.setOrientation(LinearLayout.VERTICAL);
+                    card.setBackgroundResource(R.drawable.bg_dato_card);
+
+                    int padding = (int) getResources().getDimension(R.dimen.space_8);
+                    card.setPadding(padding, padding, padding, padding);
+
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                    );
+                    params.setMargins(0, 0, 0, padding);
+                    card.setLayoutParams(params);
+
+                    // Texto del tutor
                     TextView tv = new TextView(getContext());
-                    tv.setText("- " + t.nombre + " " + t.apellido
+                    tv.setText(emoji + " " + t.nombre + " " + t.apellido
                             + " | Relación: " + safe(t.relacion)
                             + " | Tel: " + safe(t.telefono)
                             + " | Email: " + safe(t.email)
                             + " | Domicilio: " + safe(t.domicilio));
-                    tv.setTextAppearance(R.style.Text_Body);
-                    binding.containerTutores.addView(tv);
+                    tv.setTextAppearance(R.style.ItemTutorTexto);
+
+                    card.addView(tv);
+                    binding.containerTutores.addView(card);
                 }
             } else {
                 TextView tv = new TextView(requireContext());
                 tv.setText("No hay tutores registrados");
+                tv.setTextAppearance(R.style.EmptyState);
                 binding.containerTutores.addView(tv);
             }
         });
