@@ -43,4 +43,16 @@
     <!-- Estados -->
     <color name="state_active_bg">#E8F5E9</color>
     <color name="state_inactive_bg">#FFEBEE</color>
+
+    <color name="red">#FF4D4D</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#888888</color>
+
+    <color name="md_pink_50">#FCE4EC</color>
+    <color name="md_blue_50">#E3F2FD</color>
+    <color name="md_grey_200">#EEEEEE</color>
+    <color name="md_green_50">#E8F5E9</color>
+    <color name="md_purple_50">#F3E5F5</color>
+
 </resources>
