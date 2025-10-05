@@ -55,4 +55,22 @@
     <color name="md_green_50">#E8F5E9</color>
     <color name="md_purple_50">#F3E5F5</color>
 
+    <color name="tutor_madre_bg">#FFF3E0</color>   <!-- Naranja clarito -->
+    <color name="tutor_padre_bg">#E3F2FD</color>   <!-- Celeste clarito -->
+    <color name="tutor_otro_bg">#F3E5F5</color>    <!-- Violeta clarito -->
+
+
+    <!-- Texto sobre cards de tutor -->
+    <color name="tutor_text_primary">#212121</color>
+    <color name="tutor_text_secondary">#616161</color>
+
+    <color name="bg_item_purple">#F3E5F5</color>
+    <color name="bg_item_green">#E8F5E9</color>
+    <color name="bg_item_orange">#FFF3E0</color>
+    <color name="bg_item_blue">#E3F2FD</color>
+    <color name="bg_item_yellow">#FFFDE7</color>
+    <color name="bg_item_pink">#FCE4EC</color>
+
+
+
 </resources>

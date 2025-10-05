@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
+    android:layout_marginBottom="10dp"
     app:cardCornerRadius="12dp"
-    app:cardElevation="2dp">
+    app:cardElevation="3dp"
+    android:foreground="?attr/selectableItemBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,42 +14,52 @@
         android:orientation="vertical"
         android:padding="12dp">
 
-        <!-- Nombre y Relación -->
+        <!-- Nombre -->
         <TextView
             android:id="@+id/tvTutorNombre"
             android:text="👩 Carolina Gómez"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="17sp"
             android:textColor="@color/md_on_surface"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
+        <!-- Relación -->
         <TextView
             android:id="@+id/tvTutorRelacion"
             android:text="Relación: Madre"
             android:textSize="14sp"
+            android:textColor="@color/md_on_surface_variant"
             android:layout_marginTop="2dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="8dp"
+            android:background="@color/md_surface_variant" />
 
         <!-- Teléfono -->
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
                 android:text="📞"
                 android:textSize="16sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/tvTutorTelefono"
                 android:text="266-222222"
                 android:layout_marginStart="6dp"
                 android:textSize="14sp"
+                android:textColor="@color/md_on_surface_variant"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <!-- Email -->
@@ -61,14 +72,15 @@
                 android:text="✉️"
                 android:textSize="16sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/tvTutorEmail"
                 android:text="caro.gomez@mail.com"
                 android:layout_marginStart="6dp"
                 android:textSize="14sp"
+                android:textColor="@color/md_on_surface_variant"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <!-- Domicilio -->
@@ -81,14 +93,15 @@
                 android:text="🏠"
                 android:textSize="16sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/tvTutorDomicilio"
                 android:text="Barrio Norte 77"
                 android:layout_marginStart="6dp"
                 android:textSize="14sp"
+                android:textColor="@color/md_on_surface_variant"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </LinearLayout>

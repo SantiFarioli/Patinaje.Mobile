@@ -18,70 +18,13 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"/>
 
-        <!-- Cards con los datos -->
+        <!-- Contenedor dinámico de cards -->
         <LinearLayout
             android:id="@+id/containerDatos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="12dp">
-
-            <!-- DNI -->
-            <LinearLayout style="@style/ItemDatoCard">
-                <TextView
-                    style="@style/ItemDatoEmoji"
-                    android:text="🆔"/>
-                <TextView
-                    android:id="@+id/tvDni"
-                    style="@style/ItemDatoTexto"
-                    android:text="—"/>
-            </LinearLayout>
-
-            <!-- Domicilio -->
-            <LinearLayout style="@style/ItemDatoCard">
-                <TextView
-                    style="@style/ItemDatoEmoji"
-                    android:text="🏠"/>
-                <TextView
-                    android:id="@+id/tvDomicilio"
-                    style="@style/ItemDatoTexto"
-                    android:text="—"/>
-            </LinearLayout>
-
-            <!-- Nacimiento -->
-            <LinearLayout style="@style/ItemDatoCard">
-                <TextView
-                    style="@style/ItemDatoEmoji"
-                    android:text="🎂"/>
-                <TextView
-                    android:id="@+id/tvFechaNac"
-                    style="@style/ItemDatoTexto"
-                    android:text="—"/>
-            </LinearLayout>
-
-            <!-- Ficha médica -->
-            <LinearLayout style="@style/ItemDatoCard">
-                <TextView
-                    style="@style/ItemDatoEmoji"
-                    android:text="🩺"/>
-                <TextView
-                    android:id="@+id/tvFichaMedica"
-                    style="@style/ItemDatoTexto"
-                    android:text="—"/>
-            </LinearLayout>
-
-            <!-- Estado -->
-            <LinearLayout style="@style/ItemDatoCard">
-                <TextView
-                    style="@style/ItemDatoEmoji"
-                    android:text="⚡"/>
-                <TextView
-                    android:id="@+id/tvEstado"
-                    style="@style/ItemDatoTexto"
-                    android:text="—"/>
-            </LinearLayout>
-
-        </LinearLayout>
+            android:layout_marginTop="12dp"/>
 
         <!-- ===== TUTORES ===== -->
         <TextView
@@ -92,6 +35,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"/>
 
+        <!-- Contenedor dinámico para cards de tutores -->
         <LinearLayout
             android:id="@+id/containerTutores"
             android:orientation="vertical"
