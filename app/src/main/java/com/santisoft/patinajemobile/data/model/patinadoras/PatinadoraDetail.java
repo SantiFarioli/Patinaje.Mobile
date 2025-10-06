@@ -47,6 +47,21 @@ public class PatinadoraDetail {
         @SerializedName("presente") public boolean presente;
     }
 
+    @SerializedName("pagos")
+    public List<PagoDto> pagos;
+
+    public static class PagoDto {
+        @SerializedName("pagoId") public int pagoId;
+        @SerializedName("concepto") public String concepto;
+        @SerializedName("monto") public double monto;
+        @SerializedName("estado") public String estado;
+        @SerializedName("fechaVencimiento") public String fechaVencimiento; // yyyy-MM-dd
+        @SerializedName("fechaPago") public String fechaPago; // puede ser null
+        @SerializedName("tipo") public String tipo; // opcional (Cuota, Torneo, etc.)
+        @SerializedName("comprobanteUrl") public String comprobanteUrl; // opcional
+    }
+
+
 
 
 }
