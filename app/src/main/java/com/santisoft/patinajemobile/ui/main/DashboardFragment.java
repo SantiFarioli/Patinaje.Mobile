@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,10 +32,23 @@ public class DashboardFragment extends Fragment {
                               @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Navegar a Patinadoras
+        // 1. Navegar a Lista de Patinadoras
         vb.cardPatinadoras.setOnClickListener(v ->
                 NavHostFragment.findNavController(this)
                         .navigate(R.id.action_dashboard_to_patinadoras)
         );
+
+        // 2. Navegar a Tomar Asistencia (Desde la Card)
+        vb.cardAsistencias.setOnClickListener(v ->
+                NavHostFragment.findNavController(this)
+                        .navigate(R.id.action_dashboard_to_tomar_asistencia)
+        );
+
+        // 3. Toasts temporales para los botones que faltan implementar
+        View.OnClickListener notImplemented = v ->
+                Toast.makeText(getContext(), "Próximamente", Toast.LENGTH_SHORT).show();
+
+        vb.cardTorneos.setOnClickListener(notImplemented);
+        vb.cardPagos.setOnClickListener(notImplemented);
     }
 }

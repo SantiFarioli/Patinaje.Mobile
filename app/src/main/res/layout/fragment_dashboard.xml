@@ -1,4 +1,4 @@
-<!-- res/layout/fragment_dashboard.xml -->
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,7 +7,6 @@
     android:padding="16dp"
     android:paddingBottom="88dp">
 
-    <!-- ===== Buscar ===== -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilSearch"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -25,7 +24,6 @@
             android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- ===== Acciones rápidas ===== -->
     <TextView
         android:id="@+id/lblAcciones"
         android:text="@string/acciones_rapidas"
@@ -48,7 +46,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Patinadoras -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardPatinadoras"
             android:layout_width="0dp"
@@ -75,7 +72,6 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Torneos -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardTorneos"
             android:layout_width="0dp"
@@ -102,7 +98,6 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Pagos -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardPagos"
             android:layout_width="0dp"
@@ -129,9 +124,8 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Evaluaciones -->
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardEvaluaciones"
+            android:id="@+id/cardAsistencias"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:cardCornerRadius="16dp"
@@ -147,17 +141,16 @@
                 <ImageView
                     android:layout_width="28dp"
                     android:layout_height="28dp"
-                    android:src="@drawable/ic_eval"/>
+                    android:src="@drawable/ic_calendar"/>
 
                 <TextView
-                    android:text="@string/evaluaciones"
+                    android:text="Asistencias"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </androidx.gridlayout.widget.GridLayout>
 
-    <!-- ===== Vista rápida ===== -->
     <TextView
         android:id="@+id/lblVistaRapida"
         android:text="@string/vista_rapida"
@@ -169,7 +162,6 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="16dp"/>
 
-    <!-- Card: total patinadoras -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardPatCount"
         style="@style/Widget.Material3.CardView.Filled"
@@ -205,7 +197,6 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- Card: eventos -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardEventos"
         style="@style/Widget.Material3.CardView.Filled"
@@ -241,7 +232,6 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- ===== Próximos eventos ===== -->
     <TextView
         android:id="@+id/lblProximos"
         android:text="@string/proximos_eventos"
@@ -273,14 +263,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"/>
 
-    <!-- FAB -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAdd"
-        app:srcCompat="@drawable/ic_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp"
-        android:layout_marginBottom="88dp"/>  <!-- despega del bottom nav -->
 </androidx.constraintlayout.widget.ConstraintLayout>

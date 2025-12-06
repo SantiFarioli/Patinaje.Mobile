@@ -72,4 +72,7 @@ dependencies {
     testImplementation(libs.junit4)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    // Sweet Alert
+    implementation("com.github.f0ris.sweetalert:library:1.6.2")
 }

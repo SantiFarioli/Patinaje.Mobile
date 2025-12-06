@@ -10,6 +10,10 @@
         <action
             android:id="@+id/action_dashboard_to_patinadoras"
             app:destination="@id/patinadorasFragment" />
+
+        <action
+            android:id="@+id/action_dashboard_to_tomar_asistencia"
+            app:destination="@id/tomarAsistenciaFragment" />
     </fragment>
 
     <fragment
@@ -25,9 +29,14 @@
         android:id="@+id/detallePatinadoraFragment"
         android:name="com.santisoft.patinajemobile.ui.patinadoras.DetallePatinadoraFragment"
         android:label="Detalle">
-
         <argument
             android:name="patinadorId"
             app:argType="integer" />
     </fragment>
+
+    <fragment
+        android:id="@+id/tomarAsistenciaFragment"
+        android:name="com.santisoft.patinajemobile.ui.asistencias.TomarAsistenciaFragment"
+        android:label="Tomar Asistencia" />
+
 </navigation>
