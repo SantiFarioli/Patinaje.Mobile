@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
@@ -22,6 +23,7 @@ public class DetallePatinadoraFragment extends Fragment {
 
     private FragmentDetallePatinadoraBinding binding;
     private DetallePatinadoraViewModel viewModel;
+    private int currentPatinadorId = -1; // Para guardar el ID
 
     @Nullable
     @Override
@@ -31,9 +33,12 @@ public class DetallePatinadoraFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(DetallePatinadoraViewModel.class);
 
         // 👉 obtener el ID pasado desde el listado
-        int id = getArguments().getInt("patinadorId", -1);
-        if (id != -1) {
-            viewModel.loadPatinador(id); // 👈 método correcto del ViewModel
+        if (getArguments() != null) {
+            currentPatinadorId = getArguments().getInt("patinadorId", -1);
+        }
+
+        if (currentPatinadorId != -1) {
+            viewModel.loadPatinador(currentPatinadorId);
         }
 
         // observar el detalle
@@ -41,6 +46,16 @@ public class DetallePatinadoraFragment extends Fragment {
 
         // configurar tabs
         setupTabs();
+
+        // 👇 NUEVO: Click en el FAB para agregar evaluación
+        binding.fabAddEvaluacion.setOnClickListener(v -> {
+            if (currentPatinadorId != -1) {
+                Bundle args = new Bundle();
+                args.putInt("patinadorId", currentPatinadorId);
+                NavHostFragment.findNavController(this)
+                        .navigate(R.id.action_detalle_to_agregar_evaluacion, args);
+            }
+        });
 
         return binding.getRoot();
     }

@@ -63,5 +63,18 @@ public class PatinadoraDetail {
 
 
 
+    @SerializedName("evaluaciones")
+    public List<EvaluacionDto> evaluaciones;
+
+    public static class EvaluacionDto {
+        @SerializedName("evaluacionId") public int evaluacionId; // O evaluacionTorneoId
+        @SerializedName("nombreTorneo") public String nombreTorneo; // Necesitamos esto del backend
+        @SerializedName("fecha") public String fecha;
+        @SerializedName("archivoPdfUrl") public String archivoPdfUrl; // 👈 CRÍTICO
+        @SerializedName("observaciones") public String observaciones;
+    }
+
+
+
 
 }

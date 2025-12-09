@@ -1,83 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/md_surface_variant">
+    android:layout_height="match_parent">
 
-    <!-- ===== HEADER ===== -->
-    <com.google.android.material.card.MaterialCardView
-        style="@style/Widget.Patinaje.Card"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/space_16"
-        android:padding="@dimen/space_16">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/md_surface_variant">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Patinaje.Card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_16"
+            android:padding="@dimen/space_16">
 
-            <!-- Foto circular -->
-            <ImageView
-                android:id="@+id/imgFoto"
-                android:layout_width="159dp"
-                android:layout_height="148dp"
-                android:background="@drawable/bg_circle"
-                android:padding="8dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_person" />
-
-            <!-- Nombre -->
-            <TextView
-                android:id="@+id/tvNombre"
-                style="@style/Text.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8"
-                android:gravity="center" />
-
-            <!-- Categoría + Estado -->
             <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8"
-                android:gravity="center">
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipCategoria"
-                    style="@style/Chip.Success"
+                <ImageView
+                    android:id="@+id/imgFoto"
+                    android:layout_width="159dp"
+                    android:layout_height="148dp"
+                    android:background="@drawable/bg_circle"
+                    android:padding="8dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_person" />
+
+                <TextView
+                    android:id="@+id/tvNombre"
+                    style="@style/Text.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Categoría B" />
+                    android:layout_marginTop="@dimen/space_8"
+                    android:gravity="center" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipEstado"
-                    style="@style/Chip.Success"
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_8"
-                    android:text="Activa" />
+                    android:layout_marginTop="@dimen/space_8"
+                    android:gravity="center">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipCategoria"
+                        style="@style/Chip.Success"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Categoría B" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipEstado"
+                        style="@style/Chip.Success"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_8"
+                        android:text="Activa" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+        </com.google.android.material.card.MaterialCardView>
 
-    <!-- ===== TABS ===== -->
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
-        android:layout_width="match_parent"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabIndicatorColor="@color/md_primary"
+            app:tabSelectedTextColor="@color/md_primary"
+            app:tabTextColor="@color/md_on_surface_variant" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddEvaluacion"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:tabIndicatorColor="@color/md_primary"
-        app:tabSelectedTextColor="@color/md_primary"
-        app:tabTextColor="@color/md_on_surface_variant" />
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:contentDescription="Nueva Evaluación" />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
