@@ -4,11 +4,11 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.santisoft.patinajemobile.data.model.patinadoras.PatinadoraDetail;
 import com.santisoft.patinajemobile.data.model.patinadoras.PatinadoraListItem;
+import com.santisoft.patinajemobile.data.repository.PatinadorasRepository;
 
 import java.util.List;
 

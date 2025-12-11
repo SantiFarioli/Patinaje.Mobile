@@ -9,4 +9,9 @@ public class PatinadoraListItem {
     @SerializedName("categoria") public String categoria;
     @SerializedName("activo") public boolean activo;
     @SerializedName("fotoUrl") public String fotoUrl;
+
+    @Override
+    public String toString() {
+        return nombre + " " + apellido;
+    }
 }

@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.santisoft.patinajemobile.data.model.patinadoras.PatinadoraDetail;
+import com.santisoft.patinajemobile.data.repository.PatinadorasRepository;
 
 public class DetallePatinadoraViewModel extends AndroidViewModel {
 

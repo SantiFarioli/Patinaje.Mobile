@@ -22,11 +22,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.santisoft.patinajemobile.R;
+import com.santisoft.patinajemobile.data.model.patinadoras.PatinadoraListItem;
+import com.santisoft.patinajemobile.data.model.torneos.Torneo;
 import com.santisoft.patinajemobile.databinding.FragmentAgregarEvaluacionBinding;
 import com.santisoft.patinajemobile.util.DialogUtils;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -37,11 +38,17 @@ public class AgregarEvaluacionFragment extends Fragment {
     private Calendar calendario = Calendar.getInstance();
     private SweetAlertDialog pDialog;
 
-    // Variables temporales para simular selección (luego las cargaremos de API)
-    private int selectedPatinadorId = 1;
-    private int selectedTorneoId = 5;
+    // ID del patinador recibido por argumento
+    private int argPatinadorId = -1;
 
-    // Lanzador para seleccionar PDF
+    // Adapters para los Dropdowns
+    private ArrayAdapter<PatinadoraListItem> adapterPatinadoras;
+    private ArrayAdapter<Torneo> adapterTorneos;
+
+    // Variables para guardar selección actual
+    private PatinadoraListItem selectedPatinadora = null;
+    private Torneo selectedTorneo = null;
+
     private final ActivityResultLauncher<Intent> pdfLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -49,10 +56,9 @@ public class AgregarEvaluacionFragment extends Fragment {
                     Uri uri = result.getData().getData();
                     if (uri != null) {
                         viewModel.seleccionarArchivo(uri);
-                        // 👇 CAMBIO AQUÍ: Mostrar nombre real
-                        String nombreArchivo = getFileName(uri);
-                        binding.tvArchivoNombre.setText("📄 " + nombreArchivo);
-                        binding.tvArchivoNombre.setTextColor(ContextCompat.getColor(requireContext(), R.color.success)); // Opcional: ponerlo en verde
+                        String nombre = getFileName(uri);
+                        binding.tvArchivoNombre.setText("📄 " + nombre);
+                        binding.tvArchivoNombre.setTextColor(ContextCompat.getColor(requireContext(), R.color.success));
                     }
                 }
             }
@@ -70,10 +76,29 @@ public class AgregarEvaluacionFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(this).get(AgregarEvaluacionViewModel.class);
 
-        // Configurar UI
+        if (getArguments() != null) {
+            argPatinadorId = getArguments().getInt("patinadorId", -1);
+        }
+
+        // Configurar Spinners (AutoCompleteTextViews)
+        adapterPatinadoras = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line);
+        binding.spPatinadora.setAdapter(adapterPatinadoras);
+
+        adapterTorneos = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line);
+        binding.spTorneo.setAdapter(adapterTorneos);
+
+        // Manejar clics en los items de los dropdowns
+        binding.spPatinadora.setOnItemClickListener((parent, v, position, id) -> {
+            selectedPatinadora = adapterPatinadoras.getItem(position);
+        });
+
+        binding.spTorneo.setOnItemClickListener((parent, v, position, id) -> {
+            selectedTorneo = adapterTorneos.getItem(position);
+        });
+
+        // Configurar Botones y Fecha
         binding.etFecha.setOnClickListener(v -> mostrarDatePicker());
 
-        // Botón Adjuntar
         binding.btnAdjuntar.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -81,11 +106,26 @@ public class AgregarEvaluacionFragment extends Fragment {
             pdfLauncher.launch(intent);
         });
 
-        // Botón Guardar
         binding.btnGuardar.setOnClickListener(v -> {
+            // Validar selección de torneo
+            if (selectedTorneo == null) {
+                Toast.makeText(getContext(), "Selecciona un Torneo", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Validar selección de patinadora (si no vino por argumento)
+            int idPat = argPatinadorId;
+            if (idPat == -1) {
+                if (selectedPatinadora != null) {
+                    idPat = selectedPatinadora.patinadorId;
+                } else {
+                    Toast.makeText(getContext(), "Selecciona una Patinadora", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
             String obs = binding.etObservaciones.getText().toString();
-            // TODO: Obtener IDs reales de los spinners
-            viewModel.guardar(selectedPatinadorId, selectedTorneoId, calendario.getTime(), obs);
+            viewModel.guardar(idPat, selectedTorneo.torneoId, calendario.getTime(), obs);
         });
 
         // Observadores
@@ -96,34 +136,49 @@ public class AgregarEvaluacionFragment extends Fragment {
                     if (pDialog != null && pDialog.isShowing()) pDialog.dismiss();
                     pDialog = DialogUtils.showLoading(requireContext(), event.getTitle());
                     break;
-
                 case HIDE_LOADING:
                     if (pDialog != null) pDialog.dismissWithAnimation();
                     break;
-
                 case SUCCESS:
-                    if (pDialog != null) pDialog.dismiss(); // 👈 IMPORTANTE: Cerrar carga
+                    if (pDialog != null) pDialog.dismiss();
                     DialogUtils.showSuccess(requireContext(), event.getTitle(), event.getMessage());
-
-                    // Volver atrás después de 1.5s
                     new android.os.Handler().postDelayed(() -> {
                         if (isAdded()) NavHostFragment.findNavController(this).popBackStack();
                     }, 1500);
                     break;
-
                 case ERROR:
-                    if (pDialog != null) pDialog.dismiss(); // 👈 IMPORTANTE: Cerrar carga
+                case WARNING:
+                    if (pDialog != null) pDialog.dismiss();
                     DialogUtils.showError(requireContext(), event.getTitle(), event.getMessage());
-                    break;
-
-                case WARNING: // Agregar este caso por si validas campos vacíos
-                    DialogUtils.showWarning(requireContext(), event.getTitle(), event.getMessage());
                     break;
             }
         });
 
-        // Cargar Spinners dummy (luego conectamos con API real)
-        setupDummySpinners();
+        viewModel.getPatinadoras().observe(getViewLifecycleOwner(), lista -> {
+            adapterPatinadoras.clear();
+            if (lista != null) {
+                adapterPatinadoras.addAll(lista);
+                // Auto-seleccionar si tenemos ID
+                if (argPatinadorId != -1) {
+                    for (PatinadoraListItem p : lista) {
+                        if (p.patinadorId == argPatinadorId) {
+                            binding.spPatinadora.setText(p.toString(), false);
+                            binding.spPatinadora.setEnabled(false); // Bloquear
+                            selectedPatinadora = p;
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+
+        viewModel.getTorneos().observe(getViewLifecycleOwner(), lista -> {
+            adapterTorneos.clear();
+            if (lista != null) adapterTorneos.addAll(lista);
+        });
+
+        // Cargar datos
+        viewModel.cargarDatos();
     }
 
     private void mostrarDatePicker() {
@@ -133,37 +188,20 @@ public class AgregarEvaluacionFragment extends Fragment {
         }, calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DAY_OF_MONTH)).show();
     }
 
-    private void setupDummySpinners() {
-        String[] patinadoras = {"Camila Gómez", "Sofía Martínez"};
-        ArrayAdapter<String> adapterP = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, patinadoras);
-        binding.spPatinadora.setAdapter(adapterP);
-        binding.spPatinadora.setText(patinadoras[0], false); // Preselección
-
-        String[] torneos = {"Torneo Apertura 2025", "Nacional B"};
-        ArrayAdapter<String> adapterT = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, torneos);
-        binding.spTorneo.setAdapter(adapterT);
-        binding.spTorneo.setText(torneos[0], false);
-    }
-
-    // Método para obtener el nombre del archivo desde el Uri
     private String getFileName(Uri uri) {
         String result = null;
         if (uri.getScheme().equals("content")) {
             try (android.database.Cursor cursor = requireActivity().getContentResolver().query(uri, null, null, null, null)) {
                 if (cursor != null && cursor.moveToFirst()) {
                     int index = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-                    if (index != -1) {
-                        result = cursor.getString(index);
-                    }
+                    if (index != -1) result = cursor.getString(index);
                 }
             }
         }
         if (result == null) {
             result = uri.getPath();
             int cut = result.lastIndexOf('/');
-            if (cut != -1) {
-                result = result.substring(cut + 1);
-            }
+            if (cut != -1) result = result.substring(cut + 1);
         }
         return result;
     }

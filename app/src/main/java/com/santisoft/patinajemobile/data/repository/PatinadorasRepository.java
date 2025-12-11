@@ -1,4 +1,4 @@
-package com.santisoft.patinajemobile.ui.patinadoras;
+package com.santisoft.patinajemobile.data.repository;
 
 import android.content.Context;
 import android.util.Log;

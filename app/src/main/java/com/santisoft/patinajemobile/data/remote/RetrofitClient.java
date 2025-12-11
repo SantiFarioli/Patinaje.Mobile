@@ -22,7 +22,7 @@ public final class RetrofitClient {
 
     private final Retrofit retrofit;
     private final AuthApi authApi;
-    private final HomeApi homeApi;
+    private final DashboardApi dashboardApi;
     private final PatinadorasApi patinadorasApi;
     private final AsistenciasApi asistenciasApi;
     private final EvaluacionesApi evaluacionesApi;
@@ -57,7 +57,7 @@ public final class RetrofitClient {
                 .build();
 
         authApi = retrofit.create(AuthApi.class);
-        homeApi = retrofit.create(HomeApi.class);
+        dashboardApi = retrofit.create(DashboardApi.class);
         patinadorasApi = retrofit.create(PatinadorasApi.class);
         asistenciasApi = retrofit.create(AsistenciasApi.class);
         evaluacionesApi = retrofit.create(EvaluacionesApi.class);
@@ -73,7 +73,7 @@ public final class RetrofitClient {
     public Retrofit retrofit() { return retrofit; }
 
     public AuthApi authApi() { return authApi; }
-    public HomeApi homeApi() { return homeApi; }
+    public DashboardApi dashboardApi() { return dashboardApi; }
     public PatinadorasApi patinadorasApi() { return patinadorasApi; }
     public AsistenciasApi asistenciasApi() { return asistenciasApi; }
     public EvaluacionesApi evaluacionesApi() { return evaluacionesApi; }
