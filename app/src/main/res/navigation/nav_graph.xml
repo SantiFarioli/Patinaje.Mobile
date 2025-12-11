@@ -43,6 +43,11 @@
         android:label="Tomar Asistencia" />
 
     <fragment
+        android:id="@+id/torneosFragment"
+        android:name="com.santisoft.patinajemobile.ui.main.TorneosFragment"
+        android:label="Torneos" />
+
+    <fragment
         android:id="@+id/agregarEvaluacionFragment"
         android:name="com.santisoft.patinajemobile.ui.evaluaciones.AgregarEvaluacionFragment"
         android:label="Nueva Evaluación">

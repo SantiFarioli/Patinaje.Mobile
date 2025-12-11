@@ -69,10 +69,12 @@ public class DashboardFragment extends Fragment {
         vb.cardAsistencias.setOnClickListener(v ->
                 NavHostFragment.findNavController(this).navigate(R.id.action_dashboard_to_tomar_asistencia));
 
+        vb.cardTorneos.setOnClickListener(v ->
+                NavHostFragment.findNavController(this).navigate(R.id.torneosFragment));
+
         // Botones pendientes
         View.OnClickListener notImplemented = v ->
                 Toast.makeText(getContext(), "Próximamente", Toast.LENGTH_SHORT).show();
-        vb.cardTorneos.setOnClickListener(notImplemented);
         vb.cardPagos.setOnClickListener(notImplemented);
 
         // Cargar datos
