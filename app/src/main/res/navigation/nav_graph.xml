@@ -48,6 +48,11 @@
         android:label="Torneos" />
 
     <fragment
+        android:id="@+id/deudoresFragment"
+        android:name="com.santisoft.patinajemobile.ui.main.DeudoresFragment"
+        android:label="Deudores" />
+
+    <fragment
         android:id="@+id/agregarEvaluacionFragment"
         android:name="com.santisoft.patinajemobile.ui.evaluaciones.AgregarEvaluacionFragment"
         android:label="Nueva Evaluación">
