@@ -29,9 +29,12 @@ public class TorneosFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Reutilizamos el layout de Pagos porque ya tiene un RecyclerView y un TextView arriba
-        // Si quieres ser más prolijo, duplica ese XML y llámalo fragment_lista_simple.xml
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
+        // Reutilizamos el layout de Pagos porque ya tiene un RecyclerView y un TextView
+        // arriba
+        // Si quieres ser más prolijo, duplica ese XML y llámalo
+        // fragment_lista_simple.xml
         return inflater.inflate(R.layout.fragment_pagos_patinadora, container, false);
     }
 
@@ -49,6 +52,11 @@ public class TorneosFragment extends Fragment {
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
 
         EventosAdapter adapter = new EventosAdapter();
+        adapter.setListener(evento -> {
+            android.widget.Toast.makeText(getContext(),
+                    "Detalle de " + evento.nombre + " próximamente...",
+                    android.widget.Toast.LENGTH_SHORT).show();
+        });
         recycler.setAdapter(adapter);
 
         // 3. Llamar a la API
@@ -70,7 +78,10 @@ public class TorneosFragment extends Fragment {
                     adapter.submit(eventos);
                 }
             }
-            @Override public void onFailure(Call<List<Torneo>> call, Throwable t) {}
+
+            @Override
+            public void onFailure(Call<List<Torneo>> call, Throwable t) {
+            }
         });
     }
 }

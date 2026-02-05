@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.santisoft.patinajemobile.BuildConfig;            // 👈 import correcto
+import com.santisoft.patinajemobile.BuildConfig; // 👈 import correcto
 import com.santisoft.patinajemobile.data.local.SessionManager;
 
 import java.util.concurrent.TimeUnit;
@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class RetrofitClient {
 
-    private static final String BASE_URL = "http://192.168.0.100:5100/";
+    private static final String BASE_URL = "http://192.168.0.102:5100/";
 
     private static volatile RetrofitClient INSTANCE;
 
@@ -27,7 +27,6 @@ public final class RetrofitClient {
     private final AsistenciasApi asistenciasApi;
     private final EvaluacionesApi evaluacionesApi;
     private final PagosApi pagosApi;
-
 
     private RetrofitClient(Context ctx) {
         Context app = ctx.getApplicationContext();
@@ -73,12 +72,31 @@ public final class RetrofitClient {
         return INSTANCE;
     }
 
-    public Retrofit retrofit() { return retrofit; }
+    public Retrofit retrofit() {
+        return retrofit;
+    }
 
-    public AuthApi authApi() { return authApi; }
-    public DashboardApi dashboardApi() { return dashboardApi; }
-    public PatinadorasApi patinadorasApi() { return patinadorasApi; }
-    public AsistenciasApi asistenciasApi() { return asistenciasApi; }
-    public EvaluacionesApi evaluacionesApi() { return evaluacionesApi; }
-    public PagosApi pagosApi() { return pagosApi; }
+    public AuthApi authApi() {
+        return authApi;
+    }
+
+    public DashboardApi dashboardApi() {
+        return dashboardApi;
+    }
+
+    public PatinadorasApi patinadorasApi() {
+        return patinadorasApi;
+    }
+
+    public AsistenciasApi asistenciasApi() {
+        return asistenciasApi;
+    }
+
+    public EvaluacionesApi evaluacionesApi() {
+        return evaluacionesApi;
+    }
+
+    public PagosApi pagosApi() {
+        return pagosApi;
+    }
 }
