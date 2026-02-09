@@ -26,20 +26,14 @@ public class LoginActivity extends AppCompatActivity {
         vm = new ViewModelProvider(this).get(LoginViewModel.class);
 
         vb.btnLogin.setOnClickListener(v -> {
-            String email = vb.etEmail.getText().toString().trim();
-            String pass  = vb.etPassword.getText().toString().trim();
-
-            if (email.isEmpty() || pass.isEmpty()) {
-                Toast.makeText(this, "Por favor complete email y contraseña", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            doLogin(email, pass);
+            vm.login(
+                    vb.etEmail.getText().toString().trim(),
+                    vb.etPassword.getText().toString().trim());
         });
-    }
 
-    private void doLogin(String email, String pass) {
-        vm.login(email, pass).observe(this, res -> {
-            if (res == null) return;
+        vm.loginResult.observe(this, res -> {
+            if (res == null)
+                return;
 
             switch (res.status) {
                 case LOADING:
@@ -53,8 +47,7 @@ public class LoginActivity extends AppCompatActivity {
                     // TODO: guardar token en SharedPreferences si cbRemember está marcado
                     startActivity(
                             new Intent(this, HomeActivity.class)
-                                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    );
+                                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                     finish();
                     break;
 
@@ -63,10 +56,13 @@ public class LoginActivity extends AppCompatActivity {
                     vb.btnLogin.setEnabled(true);
                     Toast.makeText(this,
                             res.message != null ? res.message : "Error en el login",
-                            Toast.LENGTH_SHORT
-                    ).show();
+                            Toast.LENGTH_SHORT).show();
                     break;
             }
         });
+    }
+
+    private void doLogin(String email, String pass) {
+        // Method deprecated/removed in favor of vm.login triggers
     }
 }

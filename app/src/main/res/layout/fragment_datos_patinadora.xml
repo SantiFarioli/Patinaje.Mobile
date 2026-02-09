@@ -16,32 +16,89 @@
             style="@style/Text.Subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
             android:textAlignment="center"/>
 
-        <!-- Contenedor dinámico de cards -->
+        <!-- DNI -->
         <LinearLayout
-            android:id="@+id/containerDatos"
+            android:background="@drawable/bg_rounded_item"
+            android:backgroundTint="@color/bg_item_purple"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="12dp"/>
+            android:orientation="horizontal">
+            <TextView android:text="🆔 DNI: " style="@style/Text.Body" />
+            <TextView android:id="@+id/tvDni" style="@style/Text.Body" android:textStyle="bold"/>
+        </LinearLayout>
+
+        <!-- Domicilio -->
+        <LinearLayout
+            android:background="@drawable/bg_rounded_item"
+            android:backgroundTint="@color/bg_item_green"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView android:text="🏠 Domicilio: " style="@style/Text.Body" />
+            <TextView android:id="@+id/tvDomicilio" style="@style/Text.Body" android:textStyle="bold"/>
+        </LinearLayout>
+
+        <!-- Nacimiento -->
+        <LinearLayout
+            android:background="@drawable/bg_rounded_item"
+            android:backgroundTint="@color/bg_item_orange"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView android:text="🎂 Nacimiento: " style="@style/Text.Body" />
+            <TextView android:id="@+id/tvNacimiento" style="@style/Text.Body" android:textStyle="bold"/>
+        </LinearLayout>
+
+        <!-- Ficha Médica -->
+        <LinearLayout
+            android:background="@drawable/bg_rounded_item"
+            android:backgroundTint="@color/bg_item_blue"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView android:text="🩺 Ficha: " style="@style/Text.Body" />
+            <TextView android:id="@+id/tvFicha" style="@style/Text.Body" android:textStyle="bold"/>
+        </LinearLayout>
+
+        <!-- Estado -->
+        <LinearLayout
+            android:background="@drawable/bg_rounded_item"
+            android:backgroundTint="@color/bg_item_yellow"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView android:text="⚡ Estado: " style="@style/Text.Body" />
+            <TextView android:id="@+id/tvEstado" style="@style/Text.Body" android:textStyle="bold"/>
+        </LinearLayout>
 
         <!-- ===== TUTORES ===== -->
         <TextView
             android:text="Tutor responsable"
             style="@style/Text.Subtitle"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"/>
 
-        <!-- Contenedor dinámico para cards de tutores -->
-        <LinearLayout
-            android:id="@+id/containerTutores"
-            android:orientation="vertical"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerTutores"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"/>
+            android:nestedScrollingEnabled="false"/>
 
         <!-- Botón Volver -->
         <Button
