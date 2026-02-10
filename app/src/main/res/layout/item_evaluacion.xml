@@ -59,13 +59,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <com.google.android.material.button.MaterialButton
+        <!-- Botón Ver PDF -->
+        <Button
             android:id="@+id/btnVerPdf"
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:text="📄 Ver Planilla PDF"
-            app:icon="@drawable/ic_eval"
             android:visibility="gone"/> </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

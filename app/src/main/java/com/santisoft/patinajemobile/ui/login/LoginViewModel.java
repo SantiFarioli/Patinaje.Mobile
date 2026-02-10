@@ -27,7 +27,7 @@ public class LoginViewModel extends AndroidViewModel {
             String password = data[1];
             if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty()) {
                 MutableLiveData<Resource<LoginResponse>> err = new MutableLiveData<>();
-                err.setValue(Resource.error("Por favor complete email y contraseña", null));
+                err.setValue(Resource.error("Por favor complete email y contraseña"));
                 return err;
             }
             return repo.login(email, password);

@@ -10,16 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- ===== DATOS DE LA PATINADORA ===== -->
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="Datos de la patinadora"
             style="@style/Text.Subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             android:textAlignment="center"/>
 
-        <!-- DNI -->
         <LinearLayout
             android:background="@drawable/bg_rounded_item"
             android:backgroundTint="@color/bg_item_purple"
@@ -28,11 +26,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <TextView android:text="🆔 DNI: " style="@style/Text.Body" />
-            <TextView android:id="@+id/tvDni" style="@style/Text.Body" android:textStyle="bold"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🆔 DNI: "
+                style="@style/Text.Body" />
+            <TextView
+                android:id="@+id/tvDni"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Text.Body"
+                android:textStyle="bold"/>
         </LinearLayout>
 
-        <!-- Domicilio -->
         <LinearLayout
             android:background="@drawable/bg_rounded_item"
             android:backgroundTint="@color/bg_item_green"
@@ -41,11 +47,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <TextView android:text="🏠 Domicilio: " style="@style/Text.Body" />
-            <TextView android:id="@+id/tvDomicilio" style="@style/Text.Body" android:textStyle="bold"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🏠 Domicilio: "
+                style="@style/Text.Body" />
+            <TextView
+                android:id="@+id/tvDomicilio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Text.Body"
+                android:textStyle="bold"/>
         </LinearLayout>
 
-        <!-- Nacimiento -->
         <LinearLayout
             android:background="@drawable/bg_rounded_item"
             android:backgroundTint="@color/bg_item_orange"
@@ -54,11 +68,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <TextView android:text="🎂 Nacimiento: " style="@style/Text.Body" />
-            <TextView android:id="@+id/tvNacimiento" style="@style/Text.Body" android:textStyle="bold"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🎂 Nacimiento: "
+                style="@style/Text.Body" />
+            <TextView
+                android:id="@+id/tvNacimiento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Text.Body"
+                android:textStyle="bold"/>
         </LinearLayout>
 
-        <!-- Ficha Médica -->
         <LinearLayout
             android:background="@drawable/bg_rounded_item"
             android:backgroundTint="@color/bg_item_blue"
@@ -67,11 +89,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <TextView android:text="🩺 Ficha: " style="@style/Text.Body" />
-            <TextView android:id="@+id/tvFicha" style="@style/Text.Body" android:textStyle="bold"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🩺 Ficha: "
+                style="@style/Text.Body" />
+            <TextView
+                android:id="@+id/tvFicha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Text.Body"
+                android:textStyle="bold"/>
         </LinearLayout>
 
-        <!-- Estado -->
         <LinearLayout
             android:background="@drawable/bg_rounded_item"
             android:backgroundTint="@color/bg_item_yellow"
@@ -80,18 +110,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <TextView android:text="⚡ Estado: " style="@style/Text.Body" />
-            <TextView android:id="@+id/tvEstado" style="@style/Text.Body" android:textStyle="bold"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⚡ Estado: "
+                style="@style/Text.Body" />
+            <TextView
+                android:id="@+id/tvEstado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Text.Body"
+                android:textStyle="bold"/>
         </LinearLayout>
 
-        <!-- ===== TUTORES ===== -->
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="Tutor responsable"
             style="@style/Text.Subtitle"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:textAlignment="center"/>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -100,7 +138,6 @@
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"/>
 
-        <!-- Botón Volver -->
         <Button
             android:id="@+id/btnVolver"
             style="@style/Button.Primary"
