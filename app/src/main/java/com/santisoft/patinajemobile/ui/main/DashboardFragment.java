@@ -15,16 +15,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.santisoft.patinajemobile.R;
 import com.santisoft.patinajemobile.databinding.FragmentDashboardBinding;
+import com.santisoft.patinajemobile.util.Resource;
 
 public class DashboardFragment extends Fragment {
 
     private FragmentDashboardBinding vb;
     private DashboardViewModel vm;
-    private EventosAdapter adapter; // 👈 Usamos TU adapter existente
+    private EventosAdapter adapter;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         vb = FragmentDashboardBinding.inflate(inflater, container, false);
         return vb.getRoot();
     }
@@ -35,47 +37,77 @@ public class DashboardFragment extends Fragment {
 
         vm = new ViewModelProvider(this).get(DashboardViewModel.class);
 
-        // 1. Configurar Recycler usando TU EventosAdapter
-        adapter = new EventosAdapter(); // Instanciamos el adapter vacío
+        // 1. Configurar Recycler
+        adapter = new EventosAdapter();
         vb.recyclerEventos.setLayoutManager(new LinearLayoutManager(getContext()));
-        vb.recyclerEventos.setAdapter(adapter); // Lo conectamos al recycler
+        vb.recyclerEventos.setAdapter(adapter);
 
-        // 2. Observar Resumen (Contadores)
-        vm.getSummary().observe(getViewLifecycleOwner(), summary -> {
-            if (summary != null) {
-                vb.tvCountPatinadoras.setText(String.valueOf(summary.totalPatinadoras));
-                vb.tvCountEventos.setText(String.valueOf(summary.totalEventosProximos));
+        adapter.setListener(evento -> {
+            // TODO: Navegar a detalle del evento
+            Toast.makeText(getContext(), "Detalle: " + evento.nombre, Toast.LENGTH_SHORT).show();
+        });
+
+        // 2. Observar Resumen
+        vm.summary.observe(getViewLifecycleOwner(), res -> {
+            if (res == null)
+                return;
+            // No mostramos loading explícito para los contadores, dejamos el 0 por defecto
+            // o shimmer
+            if (res.status == Resource.Status.SUCCESS && res.data != null) {
+                vb.tvCountPatinadoras.setText(String.valueOf(res.data.totalPatinadoras));
+                vb.tvCountEventos.setText(String.valueOf(res.data.totalEventosProximos));
+            } else if (res.status == Resource.Status.ERROR) {
+                // Opcional: mostrar error visual
             }
         });
 
         // 3. Observar Lista de Eventos
-        vm.getEventos().observe(getViewLifecycleOwner(), eventos -> {
-            if (eventos != null && !eventos.isEmpty()) {
-                vb.lblNoEventos.setVisibility(View.GONE);
-                vb.recyclerEventos.setVisibility(View.VISIBLE);
+        vm.eventos.observe(getViewLifecycleOwner(), res -> {
+            if (res == null)
+                return;
 
-                // 👇 MAGIA: Usamos tu método submit()
-                adapter.submit(eventos);
-            } else {
-                vb.lblNoEventos.setVisibility(View.VISIBLE);
-                vb.recyclerEventos.setVisibility(View.GONE);
+            switch (res.status) {
+                case LOADING:
+                    vb.progress.setVisibility(View.VISIBLE);
+                    vb.recyclerEventos.setVisibility(View.GONE);
+                    vb.lblNoEventos.setVisibility(View.GONE);
+                    break;
+                case SUCCESS:
+                    vb.progress.setVisibility(View.GONE);
+                    if (res.data != null && !res.data.isEmpty()) {
+                        vb.recyclerEventos.setVisibility(View.VISIBLE);
+                        vb.lblNoEventos.setVisibility(View.GONE);
+                        adapter.submit(res.data);
+                    } else {
+                        vb.recyclerEventos.setVisibility(View.GONE);
+                        vb.lblNoEventos.setVisibility(View.VISIBLE);
+                    }
+                    break;
+                case ERROR:
+                    vb.progress.setVisibility(View.GONE);
+                    vb.lblNoEventos.setVisibility(View.VISIBLE);
+                    vb.lblNoEventos.setText(res.message);
+                    break;
             }
         });
 
-        // 4. Navegación
-        vb.cardPatinadoras.setOnClickListener(v ->
-                NavHostFragment.findNavController(this).navigate(R.id.action_dashboard_to_patinadoras));
+        // 4. Navegación (Quick Actions)
+        vb.cardPatinadoras.setOnClickListener(
+                v -> NavHostFragment.findNavController(this).navigate(R.id.action_dashboard_to_patinadoras));
 
-        vb.cardAsistencias.setOnClickListener(v ->
-                NavHostFragment.findNavController(this).navigate(R.id.action_dashboard_to_tomar_asistencia));
+        vb.cardAsistencias.setOnClickListener(
+                v -> NavHostFragment.findNavController(this).navigate(R.id.action_dashboard_to_tomar_asistencia));
 
-        vb.cardTorneos.setOnClickListener(v ->
-                NavHostFragment.findNavController(this).navigate(R.id.torneosFragment));
+        vb.cardTorneos.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(R.id.torneosFragment));
 
-        vb.cardPagos.setOnClickListener(v ->
-                NavHostFragment.findNavController(this).navigate(R.id.deudoresFragment));
+        vb.cardPagos.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(R.id.deudoresFragment));
 
-        // Cargar datos
-        vm.cargarDatos();
+        vb.tvVerTodo.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(R.id.torneosFragment));
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        vb = null;
     }
 }

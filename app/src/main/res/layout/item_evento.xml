@@ -1,72 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    card_view:cardCornerRadius="16dp"
-    card_view:cardUseCompatPadding="true"
-    android:layout_marginBottom="12dp">
+    android:layout_marginHorizontal="4dp"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="0dp">
 
-        <!-- Imagen del Polideportivo -->
+        <!-- Imagen a la izquierda (Compacta) -->
         <ImageView
             android:id="@+id/ivLugar"
-            android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_background"
-            android:contentDescription="Imagen del lugar" />
+            android:contentDescription="Imagen del torneo" />
 
         <LinearLayout
-            android:padding="16dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:padding="12dp">
 
+            <!-- Título -->
             <TextView
                 android:id="@+id/tvTitulo"
+                android:text="Torneo Nacional 2024"
                 android:textStyle="bold"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textColor="@color/black"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
+            <!-- Fecha y Lugar -->
             <TextView
-                android:id="@+id/tvFecha"
-                android:layout_marginTop="4dp"
-                android:textSize="14sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:id="@+id/tvLugar"
+                android:id="@+id/tvSubtitulo"
+                android:text="📅 12/05/2024 • 📍 Club Central"
+                android:textSize="12sp"
+                android:textColor="@color/gray"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:layout_marginTop="2dp"
-                android:textSize="14sp"
-                android:textStyle="italic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
+            <!-- Aviso Delegada (Placeholder) -->
+            <LinearLayout
+                android:id="@+id/layDelegadaNotice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/bg_rounded_item"
+                android:backgroundTint="#FFF3E0"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone">
+                <TextView
+                    android:text="📢 Info Delegada"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:textColor="#E65100"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <!-- Deadline -->
             <TextView
                 android:id="@+id/tvDeadline"
+                android:text="⚠️ Cierra inscripciones mañana"
+                android:textSize="11sp"
+                android:textColor="@color/error"
                 android:layout_marginTop="4dp"
-                android:textColor="#D32F2F"
-                android:textSize="12sp"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"/>
 
-            <Button
-                android:id="@+id/btnVerDetalle"
-                android:layout_marginTop="12dp"
-                android:text="Ver Detalle"
-                android:layout_gravity="end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.Button.TextButton"/>
         </LinearLayout>
+
+        <!-- Flecha ir -->
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_arrow_right"
+            app:tint="@color/gray"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="12dp"/>
+
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
+

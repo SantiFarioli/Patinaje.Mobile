@@ -61,4 +61,13 @@
             app:argType="integer" />
     </fragment>
 
+    <fragment
+        android:id="@+id/detalleTorneoFragment"
+        android:name="com.santisoft.patinajemobile.ui.torneos.DetalleTorneoFragment"
+        android:label="Detalle Torneo">
+        <argument
+            android:name="evento"
+            app:argType="com.santisoft.patinajemobile.data.model.eventos.Evento" />
+    </fragment>
+
 </navigation>

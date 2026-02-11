@@ -47,32 +47,30 @@ public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.VH> {
         // Título
         h.vb.tvTitulo.setText(e.nombre);
 
-        // Fecha inicio
-        h.vb.tvFecha.setText(e.fechaInicio != null ? e.fechaInicio : "");
-
-        // Lugar
-        h.vb.tvLugar.setText(e.lugar != null ? e.lugar : "");
+        // Subtítulo (Fecha + Lugar) -> Compacto
+        String fecha = e.fechaInicio != null ? e.fechaInicio.substring(0, 10) : ""; // Simplificar fecha
+        String lugar = e.lugar != null ? e.lugar : "Sin lugar";
+        h.vb.tvSubtitulo.setText("📅 " + fecha + " • 📍 " + lugar);
 
         // Cargar imagen aleatoria (determinista por nombre) con Glide
         String seed = e.nombre != null ? e.nombre.replaceAll("\\s+", "") : "default";
-        String imageUrl = "https://picsum.photos/seed/" + seed + "/500/300";
+        String imageUrl = "https://picsum.photos/seed/" + seed + "/300/300"; // Más chica (300x300)
 
         com.bumptech.glide.Glide.with(h.itemView.getContext())
                 .load(imageUrl)
-                .placeholder(android.R.drawable.ic_menu_gallery) // Placeholder básico
-                .error(android.R.drawable.ic_delete) // Icono error básico
+                .centerCrop()
+                .placeholder(android.R.drawable.ic_menu_gallery)
                 .into(h.vb.ivLugar);
 
-        // Fecha límite
-        if (e.fechaLimiteInscripcion != null && !e.fechaLimiteInscripcion.isEmpty()) {
-            h.vb.tvDeadline.setText("Inscripción hasta: " + e.fechaLimiteInscripcion);
-            h.vb.tvDeadline.setVisibility(View.VISIBLE);
-        } else {
-            h.vb.tvDeadline.setVisibility(View.GONE);
-        }
+        // Aviso Delegada (Placeholder) - Lógica futura
+        // h.vb.layDelegadaNotice.setVisibility(View.GONE);
 
-        // Click Listener
-        h.vb.btnVerDetalle.setOnClickListener(v -> {
+        // Fecha límite - Alerta
+        // TODO: Comprobar fecha real vs hoy
+        h.vb.tvDeadline.setVisibility(View.GONE);
+
+        // Click en toda la card
+        h.itemView.setOnClickListener(v -> {
             if (listener != null)
                 listener.onItemClick(e);
         });
