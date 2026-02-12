@@ -43,8 +43,9 @@ public class DashboardFragment extends Fragment {
         vb.recyclerEventos.setAdapter(adapter);
 
         adapter.setListener(evento -> {
-            // TODO: Navegar a detalle del evento
-            Toast.makeText(getContext(), "Detalle: " + evento.nombre, Toast.LENGTH_SHORT).show();
+            DashboardFragmentDirections.ActionDashboardToDetalle action = DashboardFragmentDirections
+                    .actionDashboardToDetalle(evento);
+            NavHostFragment.findNavController(this).navigate(action);
         });
 
         // 2. Observar Resumen

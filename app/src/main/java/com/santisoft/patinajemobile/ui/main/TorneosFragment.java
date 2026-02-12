@@ -53,9 +53,9 @@ public class TorneosFragment extends Fragment {
 
         EventosAdapter adapter = new EventosAdapter();
         adapter.setListener(evento -> {
-            android.widget.Toast.makeText(getContext(),
-                    "Detalle de " + evento.nombre + " próximamente...",
-                    android.widget.Toast.LENGTH_SHORT).show();
+            TorneosFragmentDirections.ActionTorneosToDetalle action = TorneosFragmentDirections
+                    .actionTorneosToDetalle(evento);
+            androidx.navigation.fragment.NavHostFragment.findNavController(this).navigate(action);
         });
         recycler.setAdapter(adapter);
 

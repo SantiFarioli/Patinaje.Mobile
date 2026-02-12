@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_dashboard_to_tomar_asistencia"
             app:destination="@id/tomarAsistenciaFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_detalle"
+            app:destination="@id/detalleTorneoFragment" />
     </fragment>
 
     <fragment
@@ -45,7 +48,11 @@
     <fragment
         android:id="@+id/torneosFragment"
         android:name="com.santisoft.patinajemobile.ui.main.TorneosFragment"
-        android:label="Torneos" />
+        android:label="Torneos">
+        <action
+            android:id="@+id/action_torneos_to_detalle"
+            app:destination="@id/detalleTorneoFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/deudoresFragment"
