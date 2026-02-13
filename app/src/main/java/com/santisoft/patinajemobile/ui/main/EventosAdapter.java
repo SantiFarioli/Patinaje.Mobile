@@ -53,13 +53,13 @@ public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.VH> {
         h.vb.tvSubtitulo.setText("📅 " + fecha + " • 📍 " + lugar);
 
         // Cargar imagen aleatoria (determinista por nombre) con Glide
-        String seed = e.nombre != null ? e.nombre.replaceAll("\\s+", "") : "default";
-        String imageUrl = "https://picsum.photos/seed/" + seed + "/300/300"; // Más chica (300x300)
+        // Cargar imagen según lugar
+        int imageResId = com.santisoft.patinajemobile.ui.common.ImageMapper.getTorneoImage(e.lugar);
 
         com.bumptech.glide.Glide.with(h.itemView.getContext())
-                .load(imageUrl)
+                .load(imageResId)
                 .centerCrop()
-                .placeholder(android.R.drawable.ic_menu_gallery)
+                .placeholder(com.santisoft.patinajemobile.R.drawable.poli_ejemplo)
                 .into(h.vb.ivLugar);
 
         // Aviso Delegada (Placeholder) - Lógica futura

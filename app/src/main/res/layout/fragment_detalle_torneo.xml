@@ -2,44 +2,25 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F5F5">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleMarginStart="16dp"
-            app:expandedTitleMarginBottom="20dp">
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-            <ImageView
-                android:id="@+id/ivHeader"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher_background"
-                app:layout_collapseMode="parallax"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/bg_login_gradient"/>
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                android:src="@android:drawable/ic_menu_revert"/>
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -48,150 +29,200 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
-            android:orientation="vertical"
-            android:padding="16dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="80dp">
 
-            <!-- Card Info Principal -->
+            <!-- A. Header: Imagen de la sede -->
+            <ImageView
+                android:id="@+id/ivHeader"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/poli_ejemplo"
+                tools:src="@drawable/poli_ejemplo" />
+
+            <!-- B. Ficha Técnica: Banner Rojo -->
             <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.Material3.CardView.Elevated"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                android:layout_marginTop="-40dp"
-                android:layout_marginBottom="16dp">
+                android:layout_margin="16dp"
+                app:cardBackgroundColor="#D32F2F"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
 
                 <LinearLayout
-                    android:padding="20dp"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
                     <TextView
                         android:id="@+id/tvTitulo"
-                        android:text="Torneo Nacional"
-                        android:textSize="22sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="TORNEO NACIONAL"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:textAllCaps="true"
+                        android:layout_marginBottom="12dp"/>
 
-                    <TextView
-                        android:id="@+id/tvFecha"
-                        android:text="📅 12 de Mayo, 2024"
-                        android:textSize="16sp"
-                        android:layout_marginTop="8dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:id="@+id/tvDescripcion"
-                        android:text="Competencia nacional de patinaje artístico. Categorías A y B."
-                        android:layout_marginTop="12dp"
-                        android:lineSpacingExtra="4dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Sección Ubicación -->
-            <TextView
-                android:text="Ubicación"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:layout_marginBottom="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.Material3.CardView.Outlined"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp">
-                
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:padding="0dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <!-- Mapa Estático (Placeholder visual o ImageView) -->
-                    <ImageView
-                        android:src="@drawable/ic_launcher_background"
-                        android:scaleType="centerCrop"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:alpha="0.6"/>
-
+                    <!-- Fecha -->
                     <LinearLayout
-                        android:padding="16dp"
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_date_range"
+                            app:tint="@android:color/white"
+                            android:layout_marginEnd="8dp"/>
+
                         <TextView
-                            android:id="@+id/tvLugar"
-                            android:text="Polideportivo Central"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
-                            android:layout_marginBottom="4dp"
-                            android:drawablePadding="8dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-                            
-                        <Button
-                            android:id="@+id/btnComoLlegar"
-                            style="@style/Widget.Material3.Button.TonalButton"
-                            android:text="🗺️ Cómo llegar"
-                            android:layout_marginTop="8dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:id="@+id/tvFecha"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="12 de Mayo, 2024"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp"/>
                     </LinearLayout>
+
+                    <!-- Hora -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_schedule"
+                            app:tint="@android:color/white"
+                            android:layout_marginEnd="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="08:00 AM"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp"/>
+                    </LinearLayout>
+
+                    <!-- Ubicacion (Ciudad/Lugar) -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_location_on"
+                            app:tint="@android:color/white"
+                            android:layout_marginEnd="8dp"/>
+
+                        <TextView
+                            android:id="@+id/tvUbicacion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mar del Plata, Buenos Aires"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp"/>
+                    </LinearLayout>
+
+                    <!-- Dirección exacta -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_stadium"
+                            app:tint="@android:color/white"
+                            android:layout_marginEnd="8dp"/>
+
+                        <TextView
+                            android:id="@+id/tvDireccion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Av. Juan B. Justo 3525"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp"/>
+                    </LinearLayout>
+
                 </LinearLayout>
+
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Lista de Inscritas (Placeholder) -->
-            <TextView
-                android:text="Atletas Inscriptas"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:layout_marginBottom="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
 
-            <FrameLayout
+            <!-- C. Sección Mapa -->
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_rounded_item"
-                android:padding="24dp">
-                
-                <TextView
-                    android:id="@+id/tvEmptyInscriptas"
-                    android:text="No hay atletas inscriptas por la delegada aún."
-                    android:gravity="center"
-                    android:textStyle="italic"
-                    android:textColor="@color/gray"
+                android:text="Ubicación del Torneo"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#333333"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="8dp"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginHorizontal="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp">
+
+                <ImageView
+                    android:id="@+id/ivMapaStatic"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </FrameLayout>
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/como_llegar"
+                    tools:src="@drawable/como_llegar"/>
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnComoLlegar"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Cómo llegar"
+                app:icon="@drawable/ic_location_on"
+                app:iconGravity="textStart"
+                app:cornerRadius="8dp"
+                style="@style/Widget.Material3.Button"/>
 
         </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
-    
-    <!-- Floating Action Button para Inscribir (Futuro) -->
+
+    <!-- D. FAB: Inscripción -->
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fabInscribir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Inscribir"
-        android:textColor="@color/white"
-        app:icon="@drawable/ic_add"
-        app:iconTint="@color/white"
-        app:backgroundTint="@color/md_primary"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"/>
+        android:layout_margin="16dp"
+        android:text="Inscripción"
+        android:textColor="@android:color/white"
+        app:icon="@drawable/ic_add"
+        app:iconTint="@android:color/white"
+        app:backgroundTint="?attr/colorPrimary" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

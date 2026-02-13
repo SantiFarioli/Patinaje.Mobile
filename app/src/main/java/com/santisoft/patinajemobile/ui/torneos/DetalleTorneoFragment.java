@@ -45,24 +45,53 @@ public class DetalleTorneoFragment extends Fragment {
 
         // 2. Toolbar Back
         vb.toolbar.setNavigationOnClickListener(v -> NavHostFragment.findNavController(this).navigateUp());
+        // Asegurar titulo vacio en toolbar porque usamos el del banner
+        vb.toolbar.setTitle("");
 
         // 3. Observar Datos del Evento
         vm.getEvento().observe(getViewLifecycleOwner(), e -> {
             if (e == null)
                 return;
 
-            vb.tvTitulo.setText(e.nombre);
-            vb.tvFecha.setText("📅 " + (e.fechaInicio != null ? e.fechaInicio : "Fecha por confirmar"));
-            vb.tvDescripcion.setText(e.descripcion != null ? e.descripcion : "Sin descripción disponible.");
-            vb.tvLugar.setText(e.lugar != null ? e.lugar : "Ubicación por confirmar");
-
-            // Cargar imagen
-            String seed = e.nombre != null ? e.nombre.replaceAll("\\s+", "") : "default";
+            // A. Header Image (Desde VM/Mapper)
             Glide.with(this)
-                    .load("https://picsum.photos/seed/" + seed + "/800/400")
+                    .load(vm.getImagenTorneo())
                     .centerCrop()
-                    .placeholder(R.drawable.ic_launcher_background)
+                    .placeholder(R.drawable.poli_ejemplo)
                     .into(vb.ivHeader);
+
+            // B. Ficha Técnica (Banner Rojo)
+            vb.tvTitulo.setText(e.nombre);
+
+            // Fecha
+            String fechaTexto = "Fecha por confirmar";
+            if (e.fechaInicio != null) {
+                try {
+                    // Simple parse para mostrar algo limpio
+                    String rawFecha = e.fechaInicio.replace("T00:00:00", "").trim();
+                    java.text.SimpleDateFormat inputFormat = new java.text.SimpleDateFormat("yyyy-MM-dd",
+                            java.util.Locale.getDefault());
+                    java.util.Date date = inputFormat.parse(rawFecha.split("T")[0]);
+                    java.text.SimpleDateFormat outputFormat = new java.text.SimpleDateFormat("dd 'de' MMMM, yyyy",
+                            java.util.Locale.getDefault());
+                    fechaTexto = outputFormat.format(date);
+                } catch (Exception ex) {
+                    fechaTexto = e.fechaInicio;
+                }
+            }
+            vb.tvFecha.setText(fechaTexto);
+
+            // Ubicación (Ciudad)
+            vb.tvUbicacion.setText(e.lugar != null ? e.lugar : "Ubicación desconocida");
+
+            // Dirección (Exacta desde VM)
+            vb.tvDireccion.setText(vm.getDireccionTorneo());
+
+            // C. Mapa Estatico
+            Glide.with(this)
+                    .load(R.drawable.como_llegar)
+                    .centerCrop()
+                    .into(vb.ivMapaStatic);
         });
 
         // 4. Botón Cómo llegar
@@ -80,9 +109,12 @@ public class DetalleTorneoFragment extends Fragment {
             }
         });
 
-        // 6. Configurar FAB (Futuro)
-        vb.fabInscribir.setOnClickListener(
-                v -> Toast.makeText(getContext(), "Próximamente: Inscripciones", Toast.LENGTH_SHORT).show());
+        // 6. Configurar FAB - Navegación a Selección de Atletas
+        vb.fabInscribir.setOnClickListener(v -> {
+            // CORRECCIÓN: Usamos Navigation y el ID exacto del nav_graph.xml
+            androidx.navigation.Navigation.findNavController(v)
+                    .navigate(R.id.action_detalleTorneo_to_seleccionAtletas);
+        });
     }
 
     @Override

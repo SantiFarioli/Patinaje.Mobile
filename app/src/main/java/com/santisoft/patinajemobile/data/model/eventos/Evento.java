@@ -25,4 +25,7 @@ public class Evento implements Serializable {
 
     @SerializedName("descripcion")
     public String descripcion;
+
+    // Campo local para UI (no viene del backend, pero se usa para visualizar)
+    public String direccion;
 }

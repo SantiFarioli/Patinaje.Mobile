@@ -54,4 +54,22 @@ public class DetalleTorneoViewModel extends AndroidViewModel {
     public void onMapOpened() {
         this.mapIntent.setValue(null);
     }
+
+    public int getImagenTorneo() {
+        Evento e = evento.getValue();
+        if (e != null) {
+            return com.santisoft.patinajemobile.ui.common.ImageMapper.getTorneoImage(e.lugar);
+        }
+        return com.santisoft.patinajemobile.R.drawable.poli_ejemplo;
+    }
+
+    public String getDireccionTorneo() {
+        Evento e = evento.getValue();
+        if (e != null) {
+            // Aseguramos que el objeto e tenga la dirección asginada
+            com.santisoft.patinajemobile.ui.common.ImageMapper.asignarDireccion(e);
+            return e.direccion;
+        }
+        return "Dirección no disponible";
+    }
 }

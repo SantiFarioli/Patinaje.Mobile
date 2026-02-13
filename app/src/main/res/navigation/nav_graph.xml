@@ -1,5 +1,6 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/dashboardFragment">
 
@@ -75,6 +76,15 @@
         <argument
             android:name="evento"
             app:argType="com.santisoft.patinajemobile.data.model.eventos.Evento" />
+        <action
+            android:id="@+id/action_detalleTorneo_to_seleccionAtletas"
+            app:destination="@id/seleccionAtletasFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/seleccionAtletasFragment"
+        android:name="com.santisoft.patinajemobile.ui.torneos.SeleccionAtletasFragment"
+        android:label="Selección Atletas"
+        tools:layout="@layout/fragment_seleccion_atletas" />
 
 </navigation>
