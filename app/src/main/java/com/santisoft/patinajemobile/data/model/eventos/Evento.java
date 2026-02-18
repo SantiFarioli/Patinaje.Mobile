@@ -1,10 +1,14 @@
 package com.santisoft.patinajemobile.data.model.eventos;
 
 import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 
 public class Evento implements Serializable {
+
+    // 👇 ¡AGREGÁ ESTO! Es la clave para que funcione el click
+    @SerializedName("id")
+    public int id;
+
     @SerializedName("nombre")
     public String nombre;
 

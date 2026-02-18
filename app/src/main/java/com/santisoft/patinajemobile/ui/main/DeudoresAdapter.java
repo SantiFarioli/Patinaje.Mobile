@@ -2,6 +2,7 @@ package com.santisoft.patinajemobile.ui.main;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,7 @@ public class DeudoresAdapter extends RecyclerView.Adapter<DeudoresAdapter.VH> {
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Usamos el layout item_pago.xml (estilo Timeline)
         ItemPagoBinding binding = ItemPagoBinding.inflate(
                 LayoutInflater.from(parent.getContext()), parent, false
         );
@@ -39,23 +41,27 @@ public class DeudoresAdapter extends RecyclerView.Adapter<DeudoresAdapter.VH> {
         PagoPendiente p = data.get(pos);
         Context context = h.itemView.getContext();
 
-        // 1. Nombre de la patinadora
-        h.binding.tvConcepto.setText("👤 " + p.patinadoraNombre);
+        // 1. Icono: Cruz Roja (Deuda)
+        h.binding.ivStatusIcon.setImageResource(R.drawable.ic_close);
+        h.binding.ivStatusIcon.setColorFilter(ContextCompat.getColor(context, R.color.md_error));
 
-        // 2. Formateo de fecha de vencimiento
+        // 2. Línea conectora: Oculta (porque son personas distintas)
+        h.binding.viewConnectorLine.setVisibility(View.GONE);
+
+        // 3. Textos
+        // Nombre -> Título
+        h.binding.tvConcepto.setText(p.patinadoraNombre);
+
+        // Vencimiento -> Detalle
         String fecha = (p.fechaVencimiento != null && p.fechaVencimiento.length() >= 10)
                 ? p.fechaVencimiento.substring(0, 10)
                 : "";
-        h.binding.tvVencimiento.setText(p.concepto + " • Vence: " + fecha);
+        h.binding.tvDetalle.setText(p.concepto + " • Vence: " + fecha);
+        h.binding.tvDetalle.setTextColor(ContextCompat.getColor(context, R.color.gray));
 
-        // 3. Monto
+        // 4. Monto (Rojo)
         h.binding.tvMonto.setText("$ " + (int) p.monto);
-
-        // 4. ESTADO (Corregido: usamos tvEstado en lugar de chipEstadoPago)
-        h.binding.tvEstado.setText("Pendiente");
-
-        // Seteamos el color de texto para que resalte (usando el color warning que ya tenés)
-        h.binding.tvEstado.setTextColor(ContextCompat.getColor(context, R.color.warning));
+        h.binding.tvMonto.setTextColor(ContextCompat.getColor(context, R.color.md_error));
     }
 
     @Override
@@ -63,7 +69,6 @@ public class DeudoresAdapter extends RecyclerView.Adapter<DeudoresAdapter.VH> {
 
     static class VH extends RecyclerView.ViewHolder {
         final ItemPagoBinding binding;
-
         VH(ItemPagoBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
