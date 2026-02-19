@@ -24,7 +24,6 @@ public class TorneosFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        // Usamos el layout nuevo que creaste
         return inflater.inflate(R.layout.fragment_torneos, container, false);
     }
 
@@ -41,16 +40,11 @@ public class TorneosFragment extends Fragment {
 
         EventosAdapter adapter = new EventosAdapter();
         adapter.setListener(evento -> {
-            // Navegación segura usando SafeArgs (esto estaba bien)
-            // Asegurate que en tu nav_graph la acción espere un objeto Evento o el ID
-            // Si da error acá, avisame para revisar el nav_graph
-             /*
-             TorneosFragmentDirections.ActionTorneosToDetalle action =
-                 TorneosFragmentDirections.actionTorneosToDetalle(evento);
-             NavHostFragment.findNavController(this).navigate(action);
-             */
-            // Por ahora, navegación simple para probar (si no tenés args configurados):
-            NavHostFragment.findNavController(this).navigate(R.id.detalleTorneoFragment);
+            // 👇 MAGIA ACÁ: Empaquetamos el evento seleccionado y lo enviamos
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("evento", evento);
+
+            NavHostFragment.findNavController(this).navigate(R.id.detalleTorneoFragment, bundle);
         });
         recycler.setAdapter(adapter);
 
