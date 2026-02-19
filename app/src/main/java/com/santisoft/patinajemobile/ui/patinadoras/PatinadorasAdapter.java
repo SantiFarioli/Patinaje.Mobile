@@ -49,15 +49,37 @@ public class PatinadorasAdapter extends RecyclerView.Adapter<PatinadorasAdapter.
         holder.vb.tvCategoria.setText("Categoría: " + p.categoria);
         holder.vb.tvEstado.setText(p.activo ? "Activa" : "Inactiva");
 
-        // Cargar foto con Glide si existe
-        if (p.fotoUrl != null && !p.fotoUrl.isEmpty()) {
+        // 👇 Buscamos la foto local basándonos en el NOMBRE de la patinadora
+        String nombreFoto = "";
+        if (p.nombre != null) {
+            // Pasamos a minúsculas, sacamos acentos (ej: Sofía -> sofia) y espacios
+            String nombreSeguro = p.nombre.toLowerCase()
+                    .replace("í", "i")
+                    .replace(" ", "_")
+                    .trim();
+            nombreFoto = "foto_" + nombreSeguro;
+        }
+
+        // Buscamos el ID dinámicamente en la carpeta drawable
+        int resId = holder.itemView.getContext().getResources().getIdentifier(
+                nombreFoto,
+                "drawable",
+                holder.itemView.getContext().getPackageName()
+        );
+
+        if (resId != 0) {
+            // Encontró la foto local (ej: foto_camila.jpg)
             Glide.with(holder.itemView.getContext())
-                    .load(p.fotoUrl)
+                    .load(resId)
                     .placeholder(R.drawable.ic_person)
                     .circleCrop()
                     .into(holder.vb.imgFotoMini);
         } else {
-            holder.vb.imgFotoMini.setImageResource(R.drawable.ic_person);
+            // No encontró el archivo, ponemos default
+            Glide.with(holder.itemView.getContext())
+                    .load(R.drawable.ic_person)
+                    .circleCrop()
+                    .into(holder.vb.imgFotoMini);
         }
 
         holder.itemView.setOnClickListener(v -> listener.onClick(p));
@@ -73,5 +95,4 @@ public class PatinadorasAdapter extends RecyclerView.Adapter<PatinadorasAdapter.
             this.vb = vb;
         }
     }
-
 }

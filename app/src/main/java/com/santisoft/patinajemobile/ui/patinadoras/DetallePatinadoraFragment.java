@@ -44,10 +44,7 @@ public class DetallePatinadoraFragment extends Fragment {
         // observar el detalle
         viewModel.getPatinador().observe(getViewLifecycleOwner(), this::cargarHeader);
 
-        // configurar tabs
-        setupTabs();
-
-        // 👇 NUEVO: Click en el FAB para agregar evaluación
+        // 👇 Click en el FAB para agregar evaluación
         binding.fabAddEvaluacion.setOnClickListener(v -> {
             if (currentPatinadorId != -1) {
                 Bundle args = new Bundle();
@@ -60,8 +57,44 @@ public class DetallePatinadoraFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Configurar tabs
+        setupTabs();
+
+        // Validar estado inicial del FAB
+        if (binding.tabLayout.getSelectedTabPosition() == 3) {
+            binding.fabAddEvaluacion.show();
+        } else {
+            binding.fabAddEvaluacion.hide();
+        }
+
+        // Listener para cambios de tab
+        binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 3) {
+                    binding.fabAddEvaluacion.show();
+                } else {
+                    binding.fabAddEvaluacion.hide();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
+    }
+
     private void cargarHeader(PatinadoraDetail p) {
-        if (p == null) return;
+        if (p == null)
+            return;
 
         // Nombre
         binding.tvNombre.setText(p.nombre + " " + p.apellido);
@@ -79,15 +112,34 @@ public class DetallePatinadoraFragment extends Fragment {
             binding.chipEstado.setTextColor(getResources().getColor(android.R.color.black));
         }
 
-        // Foto
-        if (p.fotoUrl != null && !p.fotoUrl.isEmpty()) {
+        // 👇 Buscamos la foto local basándonos en el NOMBRE de la patinadora
+        String nombreFoto = "";
+        if (p.nombre != null) {
+            // Pasamos a minúsculas y sacamos acentos
+            String nombreSeguro = p.nombre.toLowerCase()
+                    .replace("í", "i")
+                    .replace(" ", "_")
+                    .trim();
+            nombreFoto = "foto_" + nombreSeguro;
+        }
+
+        int resId = requireContext().getResources().getIdentifier(
+                nombreFoto,
+                "drawable",
+                requireContext().getPackageName()
+        );
+
+        if (resId != 0) {
             Glide.with(this)
-                    .load(p.fotoUrl)
+                    .load(resId)
                     .placeholder(R.drawable.ic_person)
                     .circleCrop()
                     .into(binding.imgFoto);
         } else {
-            binding.imgFoto.setImageResource(R.drawable.ic_person);
+            Glide.with(this)
+                    .load(R.drawable.ic_person)
+                    .circleCrop()
+                    .into(binding.imgFoto);
         }
     }
 
@@ -99,10 +151,14 @@ public class DetallePatinadoraFragment extends Fragment {
         viewPager.setAdapter(adapter);
 
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
-            if (position == 0) tab.setText("Datos");
-            else if (position == 1) tab.setText("Asistencias");
-            else if (position == 2) tab.setText("Pagos");
-            else if (position == 3) tab.setText("Evaluaciones");
+            if (position == 0)
+                tab.setText("Datos");
+            else if (position == 1)
+                tab.setText("Asistencias");
+            else if (position == 2)
+                tab.setText("Pagos");
+            else if (position == 3)
+                tab.setText("Evaluaciones");
         }).attach();
     }
 }

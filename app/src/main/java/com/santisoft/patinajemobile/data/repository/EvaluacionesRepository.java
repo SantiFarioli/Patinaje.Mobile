@@ -38,15 +38,20 @@ public class EvaluacionesRepository {
 
     public Call<Void> subirEvaluacion(int patinadorId, int torneoId, String fecha, String obs, byte[] pdfBytes) {
 
+        // 1. Textos planos (MediaType text/plain)
         RequestBody rId = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(patinadorId));
         RequestBody rTorneo = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(torneoId));
         RequestBody rFecha = RequestBody.create(MediaType.parse("text/plain"), fecha);
         RequestBody rObs = RequestBody.create(MediaType.parse("text/plain"), obs != null ? obs : "");
 
+        // 2. Archivo PDF
         MultipartBody.Part bodyPdf = null;
         if (pdfBytes != null && pdfBytes.length > 0) {
             RequestBody requestFile = RequestBody.create(MediaType.parse("application/pdf"), pdfBytes);
-            bodyPdf = MultipartBody.Part.createFormData("ArchivoPdf", "evaluacion.pdf", requestFile);
+
+            // ⚠️ IMPORTANTE: El primer parámetro debe ser EXACTAMENTE "ArchivoPdf"
+            // porque así se llama la propiedad en tu DTO de C#: public IFormFile? ArchivoPdf { get; set; }
+            bodyPdf = MultipartBody.Part.createFormData("ArchivoPdf", "planilla_torneo.pdf", requestFile);
         }
 
         return api.crearEvaluacion(rId, rTorneo, rFecha, rObs, bodyPdf);

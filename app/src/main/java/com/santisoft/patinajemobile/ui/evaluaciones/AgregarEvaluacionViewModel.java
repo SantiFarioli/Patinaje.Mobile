@@ -97,10 +97,21 @@ public class AgregarEvaluacionViewModel extends AndroidViewModel {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {
                             dialogEvent.postValue(new DialogEvent(DialogEvent.Type.HIDE_LOADING, null, null));
+
                             if (response.isSuccessful()) {
                                 dialogEvent.postValue(new DialogEvent(DialogEvent.Type.SUCCESS, "Éxito", "Evaluación guardada correctamente."));
                             } else {
-                                dialogEvent.postValue(new DialogEvent(DialogEvent.Type.ERROR, "Error", "Código servidor: " + response.code()));
+                                // 👇 AQUÍ ESTÁ LA MAGIA: Leemos por qué falló
+                                String errorMsg = "Error desconocido";
+                                try {
+                                    if (response.errorBody() != null) {
+                                        errorMsg = response.errorBody().string(); // Leemos el mensaje del backend
+                                    }
+                                } catch (Exception e) {
+                                    errorMsg = "Error parseando respuesta (" + response.code() + ")";
+                                }
+                                // Mostramos el mensaje real en el alerta
+                                dialogEvent.postValue(new DialogEvent(DialogEvent.Type.ERROR, "Atención", errorMsg));
                             }
                         }
 
